@@ -1,0 +1,96 @@
+{
+  "personalInfo": {
+    "name": "Majid Seifi Kashani",
+    "location": "North York, ON",
+    "phone": "(416) 200-4008",
+    "email": "majidseifikashani@gmail.com",
+    "linkedin": "linkedin.com/in/majidseifi",
+    "website": "seifi.dev",
+    "title": "Front-end Developer"
+  },
+  "professionalSummary": "With 3+ years of experience building solutions for e-commerce, I create web applications that drive real business results. Proficient in HTML, CSS, JavaScript and React, I recently re-architected a company's web presence, leading to a 35% increase in online sales and a 40% boost in organic traffic through targeted development and SEO.",
+  "workExperience": [
+    {
+      "title": "Web Developer",
+      "company": "Sowcial",
+      "location": "Toronto, ON",
+      "startDate": "2025-03",
+      "endDate": "2025-10",
+      "responsibilities": [
+        "Developed a production-ready marketplace using Next.js 15, TypeScript, and Tailwind CSS, converting a Hackathon concept into a scalable web application.",
+        "Established a three-tier deployment pipeline on Google Cloud Platform, automating builds and enhancing security by integrating Google Secret Manager to eliminate hardcoded tokens.",
+        "Implemented a comprehensive error handling system with custom reusable components, improving user experience by providing context-aware feedback for all HTTP status codes."
+      ],
+      "technologies": ["Next.js 15", "TypeScript", "Tailwind CSS", "Google Cloud Platform", "Google Secret Manager"]
+    },
+    {
+      "title": "Ecommerce Specialist",
+      "company": "Galerie Maya",
+      "location": "Toronto, ON",
+      "startDate": "2023-10",
+      "endDate": "2025-03",
+      "responsibilities": [
+        "Redesigned website entirely on the Shopify platform, implementing a modern UI and custom JavaScript features that contributed to a 35% increase in online sales.",
+        "Drove a 40% increase in organic traffic within six months by executing a targeted SEO strategy, focusing on keyword optimization for product descriptions and creating high-ranking landing pages.",
+        "Analyzed website performance using Google Analytics, translating visitor data into actionable UI/UX improvements that led to a 35% increase in sales conversion rates."
+      ],
+      "technologies": ["Shopify", "JavaScript", "SEO", "Google Analytics"],
+      "achievements": [
+        "35% increase in online sales",
+        "40% increase in organic traffic",
+        "35% increase in sales conversion rates"
+      ]
+    },
+    {
+      "title": "Web Developer",
+      "company": "Frenzr Social Media Agency",
+      "location": "Montreal, QC",
+      "startDate": "2023-05",
+      "endDate": "2023-08",
+      "responsibilities": [
+        "Overhauled the agency's website UI/UX on the Squarespace platform, integrating an automated calendar booking system that directly increased the volume of inbound client discovery calls by 50%.",
+        "Developed and launched several key pages, including 'Clients,' 'Team,' and 'Contact Us,' applying custom CSS modifications to create a more professional and cohesive online presence."
+      ],
+      "technologies": ["Squarespace", "CSS"],
+      "achievements": [
+        "50% increase in inbound client discovery calls"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "Bachelor Of Applied Science (BASc) In Computer Science",
+      "institution": "York University",
+      "location": "Toronto, ON",
+      "startDate": "2025-09",
+      "endDate": "2028-08",
+      "status": "In Progress"
+    },
+    {
+      "degree": "College Diploma In Computer Programming",
+      "institution": "Seneca Polytechnic",
+      "location": "Toronto, ON",
+      "gpa": "3.6/4.0",
+      "startDate": "2024-05",
+      "endDate": "2025-08",
+      "status": "Completed"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Agri-Tourism Marketplace",
+      "date": "2025-03",
+      "context": "Seneca Hackathon 2025 - Finalist",
+      "techStack": ["HTML", "CSS", "JavaScript", "Node.js", "Express", "Vercel"],
+      "description": [
+        "Developed the initial prototype for an agritourism platform during an 8-hour hackathon, focusing on core user flows for browsing and viewing tour details.",
+        "Built a mock back-end using Node.js and Express to serve JSON data from local files, simulating a live API for the front-end to consume."
+      ]
+    }
+  ],
+  "skills": {
+    "programmingLanguages": ["CSS3", "HTML5", "JavaScript", "Python", "TypeScript"],
+    "frameworksAndLibraries": ["Next.js", "React"],
+    "toolsAndPlatforms": ["Figma", "Google Cloud Platform (GCP)", "Responsive Web Design", "RESTful APIs"]
+  }
+}
