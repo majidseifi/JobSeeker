@@ -1,0 +1,848 @@
+{
+  "name": "Job Seeker",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        128
+      ],
+      "id": "06a0ef7f-f4b9-43a8-9c31-3271301425ea",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "actorId": {
+          "__rl": true,
+          "value": "MXLpngmVpE8WTESQr",
+          "mode": "list",
+          "cachedResultName": "🚀 Indeed jobs scraper [PPR] (borderline/indeed-scraper)",
+          "cachedResultUrl": "https://console.apify.com/actors/MXLpngmVpE8WTESQr/input"
+        },
+        "customBody": "{\n    \"country\": \"ca\",\n    \"enableUniqueJobs\": false,\n    \"fromDays\": \"1\",\n    \"jobType\": \"fulltime\",\n    \"location\": \"North York\",\n    \"maxRows\": 50,\n    \"query\": \"web developer\",\n    \"remote\": \"remote\",\n    \"sort\": \"relevance\"\n}",
+        "timeout": 180
+      },
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        224,
+        32
+      ],
+      "id": "31a397c5-c61b-480a-97f8-b648bc0d2229",
+      "name": "Run Indeed Actor",
+      "credentials": {
+        "apifyApi": {
+          "id": "hGvpsAZZaeBRg3Tb",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You're an intelligent bot perfect at rating a job opening based on the candidate's resume. Please score the job out of 10 using the following weighted criteria:\n\nSCORING RUBRIC (out of 10 points total):\n\na) Resume Fit (0-4 points):\n- 0 points: No match or poor fit\n- 2 points: Mostly matching (some relevant skills/experience)\n- 4 points: Amazing fit (strong match with requirements)\n\nb) Salary (0-2 points):\n- 2 points: Over $60,000/year OR over $5,000/month OR over $30/hr\n- 0 points: Below thresholds or not specified\n\nc) Remote Position (0-2 points):\n- 2 points: Remote or hybrid position\n- 0 points: On-site only\n\nd) Benefits (0-1 point):\n- 1 point: Benefits offered (health, dental, vacation, etc.)\n- 0 points: No benefits mentioned\n\ne) Full-time (0-1 point):\n- 1 point: Full-time permanent position (not contract or part-time)\n- 0 points: Contract, part-time, or temporary\n\nIMPORTANT: Calculate each score separately and show your work in the reasoning.",
+              "role": "model"
+            },
+            {
+              "content": "=Here's the job listing details:\nSalary: {{ $json.salary.salaryText || \"Not specified (check description)\"}}\nRemote: {{ $json.isRemote }}\nBenefits: {{ $json.benefits }}\nJob type/term: {{ $json. jobType[0] || \"Not specified (check description)\"}} (i.e. part time, full time, contract etc)\nJob Description:\n{{ $json.descriptionText }}\n\nThe candidate has 4 different resume versions. Please analyze which version best matches this job and recommend it.\n\n=== RESUME VERSION 1 ===\nFocus: Comprehensive software developer profile with C++ project, includes business development experience\nTitle: Software Developer\nKey Highlights:\n- C++ Object-Oriented Programming project\n- Business Development Executive role showing business acumen\n- Full technology stack (C++, JavaScript, React, Python)\n- Recent graduate with 3.6 GPA\n- Comprehensive skills section\nBest for: Backend roles, full-stack positions, junior roles that value well-rounded background\n\n=== RESUME VERSION 2 ===\nFocus: Similar to V1 but emphasizes both academic and hackathon projects\nTitle: Software Developer\nKey Highlights:\n- Hackathon Finalist (Agri-Tourism Marketplace)\n- C++ Object-Oriented Programming project\n- Business Development role showing leadership\n- Full technology stack\n- Shows versatility and fast prototyping ability\nBest for: Startup environments, roles valuing rapid development, positions requiring diverse skills\n\n=== RESUME VERSION 3 ===\nFocus: Streamlined web developer profile emphasizing experience\nTitle: Software Developer\nKey Highlights:\n- \"3+ years of experience\" emphasis (instead of recent graduate)\n- E-commerce specialization\n- Results-driven professional summary\n- Hackathon project only\n- No Business Development role - pure tech focus\n- Simplified skills section\nBest for: Mid-level web developer roles, e-commerce companies, positions not suitable for junior candidates\n\n=== RESUME VERSION 4 ===\nFocus: Front-end developer specialization with UI/UX emphasis\nTitle: Front-end Developer\nKey Highlights:\n- \"Front-end Developer\" title (not Software Developer)\n- UI/UX and Google Analytics expertise highlighted\n- React and Next.js focus\n- 3+ years experience emphasis\n- Design and user experience focused\n- More detailed Galerie Maya UI/UX achievements\nBest for: Front-end specific roles, UI/UX positions, design-focused development roles, React/Next.js jobs\n\nIMPORTANT: Based on the job description, requirements, and title, recommend which resume version (1, 2, 3, or 4) would be the best fit.\n"
+            },
+            {
+              "content": "=Please return JSON data structured the following way:\n{\n  \"score\": {\n    \"match\": 0,\n    \"salary\": 0,\n    \"remote\": 0,\n    \"benefits\": 0,\n    \"fulltime\": 0,\n    \"total\": 0\n  },\n  \"recommendedResumeVersion\": 0,\n  \"reasoning\": \"Explain both the score briefly and why you recommended this specific resume version\"\n}\n\nIMPORTANT:\n- recommendedResumeVersion must be 1, 2, 3, or 4\n- In your reasoning, explain which resume version you chose and why",
+              "role": "model"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        2016,
+        144
+      ],
+      "id": "bad76430-8aa4-4ec7-aa1e-d76948d2b500",
+      "name": "Score and Reason",
+      "retryOnFail": true,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "H0iGOFlF3ECQrLAu",
+          "name": "Project -> JobSeeker"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "cd01f8e9-94c1-4cb4-b793-fe2727fae2aa",
+              "leftValue": "={{ $json.scoreMatch }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "notEquals"
+              }
+            },
+            {
+              "id": "db2e85ba-d9ea-4269-9731-efd93ae8d4b3",
+              "leftValue": "={{ $json.scoreTotal }}",
+              "rightValue": 5,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2592,
+        144
+      ],
+      "id": "d098339b-0400-4bdb-8f0e-5899f0bc30d8",
+      "name": "If score more than 5"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a senior career consultant specializing in tech industry cover letters. Create a compelling, personalized cover letter following these guidelines:\n\nOPENING PARAGRAPH (2-3 sentences):\n- Lead with your strongest relevant qualification or a compelling hook\n- Mention the specific role and company\n- Briefly state why you're interested (be specific, not generic)\n\nEXAMPLE: \"When I redesigned Galerie Maya's e-commerce platform and drove a 35% increase in conversions, I discovered my passion for building user-centric web experiences. This\nhands-on approach to solving real business problems through code aligns perfectly with [Company]'s mission to [specific company goal from job description].\"\n\nBODY PARAGRAPHS (2 paragraphs):\n\nParagraph 1 - Technical Fit:\n- Highlight 2-3 technical skills/experiences that directly match job requirements\n- Use specific examples with measurable results\n- Connect your experience to their needs\n\nParagraph 2 - Value Proposition:\n- Showcase a relevant project or achievement\n- Demonstrate problem-solving ability\n- Show how you'll add value to their team\n\nCLOSING PARAGRAPH (2-3 sentences):\n- Express genuine enthusiasm for the role/company\n- Include a confident call to action\n- Keep it concise and forward-looking\n\nSTYLE GUIDELINES:\n✓ Use active voice and strong action verbs\n✓ Be specific with numbers, technologies, and outcomes\n✓ Show, don't tell (use examples, not adjectives)\n✓ Match the company's tone (formal for enterprise, casual for startups)\n✓ Keep it under 350 words\n✗ No generic openings like \"I am writing to apply for...\"\n✗ No desperation or underselling yourself\n✗ No listing skills without context\n✗ No repeating your resume",
+              "role": "model"
+            },
+            {
+              "content": "=Here's the job listing details:\nTitle: {{ $('JSONify score and reasoning').item.json.title }}\nCompany: {{ $('JSONify score and reasoning').item.json.companyName }}\nLocation: {{ $('JSONify score and reasoning').item.json.location }}\nSalary: {{ $('JSONify score and reasoning').item.json.salary }}\nRemote: {{ $('JSONify score and reasoning').item.json.isRemote }}\n\nHere is the candidate's COMPLETE resume (Version {{ $('JSONify score and reasoning').item.json.recommendedResumeVersion }} - recommended as best match):\n\n{{ JSON.stringify($('JSONify score and reasoning').item.json.candidateResume, null, 2) }}\n\nIMPORTANT: This is Resume Version {{ $('JSONify score and reasoning').item.json.recommendedResumeVersion }}.\n\nCover letter writing guidelines based on version:\n- Version 1/2: Emphasize full-stack capabilities, business acumen, and recent graduate energy\n- Version 3: Emphasize 3+ years of proven results and e-commerce expertise\n- Version 4: Emphasize front-end specialization, UI/UX expertise, and design focus\n\nTailor the cover letter to highlight the unique strengths of this particular resume version.\n"
+            },
+            {
+              "content": "=Write a cover letter that makes the hiring manager want to interview this candidate. Focus on specific achievements and technologies that match the job requirements. Make it\nconversational yet professional.\n\nIMPORTANT: Return ONLY a valid JSON object with no markdown formatting, no code blocks, no extra text:\n{\n  \"cover_letter\": \"Your complete cover letter here. Use \\\\n\\\\n for paragraph breaks between opening, body paragraphs, and closing.\"\n}",
+              "role": "model"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        3040,
+        128
+      ],
+      "id": "6eb69189-129a-4be9-b4fc-09057db4d366",
+      "name": "Generate Cover Letter",
+      "retryOnFail": true,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "H0iGOFlF3ECQrLAu",
+          "name": "Project -> JobSeeker"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "  // Extract the JSON string from Gemini's cover letter response\n  let geminiText = $input.item.json.content.parts[0].text;\n\n  // Remove markdown code block wrappers if present\n  geminiText = geminiText.trim();\n  if (geminiText.startsWith('```')) {\n    geminiText = geminiText.replace(/^```(?:json)?\\s*\\n?/, '');\n    geminiText = geminiText.replace(/\\n?```\\s*$/, '');\n    geminiText = geminiText.trim();\n  }\n\n  // Parse the JSON string\n  const parsed = JSON.parse(geminiText);\n\n  // Get the score and job data from the JSONify score and reasoning node\n  const scoreData = $('JSONify score and reasoning').item.json;\n\n  // Return all data for Google Sheets\n  return {\n    json: {\n      ...scoreData,  // All job data + score breakdown + reasoning\n      coverLetter: parsed.cover_letter\n    }\n  };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3392,
+        128
+      ],
+      "id": "6d114e50-b1a2-4925-822b-ff47ef0d7ae0",
+      "name": "JSONify Cover Letter"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "YOUR_GOOGLE_SHEETS_DOCUMENT_ID",
+          "mode": "list",
+          "cachedResultName": "Job Listings Database",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEETS_DOCUMENT_ID/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEETS_DOCUMENT_ID/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Title": "={{ $json.title }}",
+            "Platform": "={{ $json.platform }}",
+            "Date": "={{ $json.datePublished }}",
+            "Company Name": "={{ $json.companyName }}",
+            "City": "={{ $json.location.city }}",
+            "Expired": "={{ $json.expired }}",
+            "Remote": "={{ $json.isRemote }}",
+            "Link": "={{ $json.jobUrl }}",
+            "Rating": "={{ $json.scoreTotal }}",
+            "Cover Letter": "={{ $json.coverLetter }}",
+            "Salary": "={{ $json.salary }}",
+            "Job Description": "={{ $json.descriptionText }}",
+            "Resume Version": "={{ $json.recommendedResumeVersion }}",
+            "Status": "To-Do"
+          },
+          "matchingColumns": [
+            "Link"
+          ],
+          "schema": [
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Platform",
+              "displayName": "Platform",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Link",
+              "displayName": "Link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Rating",
+              "displayName": "Rating",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Resume Version",
+              "displayName": "Resume Version",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Company Name",
+              "displayName": "Company Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Job Description",
+              "displayName": "Job Description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Cover Letter",
+              "displayName": "Cover Letter",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Salary",
+              "displayName": "Salary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "City",
+              "displayName": "City",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Expired",
+              "displayName": "Expired",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Remote",
+              "displayName": "Remote",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        3616,
+        128
+      ],
+      "id": "87025e2f-8883-4f54-9e33-c11ce5801163",
+      "name": "Append or update job in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "xMntBXBmoN3qkY6T",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Extract the JSON string from Gemini's response\nlet geminiText = $input.item.json.content.parts[0].text;\n\n// Remove markdown code block wrappers if present\ngeminiText = geminiText.trim();\nif (geminiText.startsWith('```')) {\n  geminiText = geminiText.replace(/^```(?:json)?\\s*\\n?/, '');\n  geminiText = geminiText.replace(/\\n?```\\s*$/, '');\n}\n\n// Parse the cleaned JSON string\nconst parsed = JSON.parse(geminiText.trim());\n\n// Get the original job data from the dataset\nconst jobData = $('Loop Over dataset items').item.json;\n\n// Get recommended version\nconst version = parsed.recommendedResumeVersion || 1;\n\n// Common resume data (appears in all versions)\nconst commonResumeData = {\n  \"personalInfo\": {\n    \"name\": \"YOUR_FULL_NAME\",\n    \"location\": \"North York, ON\",\n    \"phone\": \"(XXX) XXX-XXXX\",\n    \"email\": \"your-email@example.com\",\n    \"linkedin\": \"linkedin.com/in/your-profile\",\n    \"website\": \"yourdomain.com\"\n  },\n  \"workExperience\": {\n    \"sowcial\": {\n      \"title\": \"Web Developer\",\n      \"company\": \"Sowcial\",\n      \"location\": \"Toronto, ON\",\n      \"startDate\": \"2025-03\",\n      \"endDate\": \"2025-10\"\n    },\n    \"galerieMayaEcommerce\": {\n      \"title\": \"Ecommerce Specialist\",\n      \"company\": \"Galerie Maya\",\n      \"location\": \"Toronto, ON\",\n      \"startDate\": \"2023-10\",\n      \"endDate\": \"2025-03\"\n    },\n    \"frenzr\": {\n      \"title\": \"Web Developer\",\n      \"company\": \"Frenzr Social Media Agency\",\n      \"location\": \"Montreal, QC\",\n      \"startDate\": \"2023-05\",\n      \"endDate\": \"2023-08\"\n    }\n  },\n  \"education\": [\n    {\n      \"degree\": \"Bachelor Of Applied Science (BASc) In Computer Science\",\n      \"institution\": \"York University\",\n      \"location\": \"Toronto, ON\",\n      \"startDate\": \"2025-09\",\n      \"endDate\": \"2028-08\",\n      \"status\": \"In Progress\"\n    },\n    {\n      \"degree\": \"College Diploma In Computer Programming\",\n      \"institution\": \"Seneca Polytechnic\",\n      \"location\": \"Toronto, ON\",\n      \"gpa\": \"3.6/4.0\",\n      \"startDate\": \"2024-05\",\n      \"endDate\": \"2025-08\",\n      \"status\": \"Completed\"\n    }\n  ]\n};\n\n// Version-specific resume configurations\nconst resumeVersions = {\n  1: {\n    \"title\": \"Software Developer\",\n    \"professionalSummary\": \"With a background in building and managing e-commerce platforms, I pivoted to software development to solve complex problems with code. As a recent Computer Programming graduate (3.6 GPA) with a strong foundation in JavaScript, React, C++, and Python, I apply my business acumen and technical skills to build robust and scalable software.\",\n    \"workExperience\": [\n      {\n        \"title\": \"Web Developer\",\n        \"company\": \"Sowcial\",\n        \"location\": \"Toronto, ON\",\n        \"startDate\": \"2025-03\",\n        \"endDate\": \"2025-10\",\n        \"responsibilities\": [\n          \"Developed a production-ready marketplace using Next.js 15, TypeScript, and Tailwind CSS, converting a Hackathon concept into a scalable web application.\",\n          \"Implemented a comprehensive error handling system with custom reusable components, improving user experience by providing context-aware feedback for all HTTP status codes.\",\n          \"Established a three-tier deployment pipeline on Google Cloud Platform, automating builds and enhancing security by integrating Google Secret Manager to eliminate hardcoded tokens.\"\n        ],\n        \"technologies\": [\"Next.js 15\", \"TypeScript\", \"Tailwind CSS\", \"Google Cloud Platform\", \"Google Secret Manager\"]\n      },\n      {\n        \"title\": \"Ecommerce Specialist\",\n        \"company\": \"Galerie Maya\",\n        \"location\": \"Toronto, ON\",\n        \"startDate\": \"2023-10\",\n        \"endDate\": \"2025-03\",\n        \"responsibilities\": [\n          \"Redesigned website entirely on the Shopify platform, implementing a modern UI and custom JavaScript features that contributed to a 35% increase in online sales.\",\n          \"Drove a 40% increase in organic traffic within six months by executing a targeted SEO strategy, focusing on keyword optimization for product descriptions and creating high-ranking landing pages.\"\n        ],\n        \"technologies\": [\"Shopify\", \"JavaScript\", \"SEO\"],\n        \"achievements\": [\n          \"35% increase in online sales\",\n          \"40% increase in organic traffic\"\n        ]\n      },\n      {\n        \"title\": \"Business Development Executive\",\n        \"company\": \"Galerie Maya\",\n        \"location\": \"Toronto, ON\",\n        \"startDate\": \"2021-02\",\n        \"endDate\": \"2023-10\",\n        \"responsibilities\": [\n          \"Executed a multichannel digital marketing strategy, utilizing Facebook ads and marketplace positioning to drive a 35% increase in overall sales.\",\n          \"Expanded the customer base by 30% by securing sponsorships and representation at high-end events, significantly boosting brand awareness and market penetration.\"\n        ],\n        \"achievements\": [\n          \"35% increase in overall sales\",\n          \"30% customer base expansion\"\n        ]\n      },\n      {\n        \"title\": \"Web Developer\",\n        \"company\": \"Frenzr Social Media Agency\",\n        \"location\": \"Montreal, QC\",\n        \"startDate\": \"2023-05\",\n        \"endDate\": \"2023-08\",\n        \"responsibilities\": [\n          \"Overhauled the agency's website UI/UX on the Squarespace platform, integrating an automated calendar booking system that directly increased the volume of inbound client discovery calls by 50%.\"\n        ],\n        \"technologies\": [\"Squarespace\"],\n        \"achievements\": [\n          \"50% increase in inbound client discovery calls\"\n        ]\n      }\n    ],\n    \"projects\": [\n      {\n        \"name\": \"Restaurant Order Management System\",\n        \"date\": \"2024-09 to 2024-12\",\n        \"context\": \"Object Oriented C++ Project\",\n        \"techStack\": [\"C++\", \"Git\", \"GitHub\"],\n        \"description\": [\n          \"Developed a console-based restaurant management application in C++, applying object-oriented principles like inheritance and polymorphism to model menu items and handle billing.\",\n          \"Implemented a dynamic menu system capable of parsing and loading food and drink items from external .csv files, allowing for easy updates without recompiling.\",\n          \"Ensured data persistence for itemized receipts by utilizing file I/O operations, allowing completed bills to be saved and reviewed in subsequent sessions.\"\n        ]\n      }\n    ],\n    \"skills\": {\n      \"programmingLanguages\": [\"C++\", \"CSS3\", \"HTML5\", \"JavaScript\", \"Python\", \"SQL\", \"TypeScript\"],\n      \"frameworksAndLibraries\": [\"Bootstrap\", \"Next.js\", \"Node.js\", \"React\", \"shadcn/ui\", \"Tailwind CSS\"],\n      \"toolsAndPlatforms\": [\n        \"Agile Methodologies\", \"CI/CD\", \"Docker\", \"Figma\", \"Git\", \"GitHub\",\n        \"Google Cloud Platform (GCP)\", \"MongoDB\", \"NextAuth\", \"PostgreSQL\",\n        \"Responsive Web Design\", \"RESTful APIs\", \"SEO\", \"Shopify\", \"Supabase\",\n        \"UI/UX Principles\", \"Vercel\"\n      ],\n      \"coreCompetencies\": [\n        \"Full-stack web development\", \"E-commerce platform development\",\n        \"Cloud deployment and CI/CD pipelines\", \"SEO and digital marketing\",\n        \"UI/UX design and optimization\", \"Database management\",\n        \"API development and integration\", \"Object-oriented programming\",\n        \"Business development and CRM systems\"\n      ]\n    },\n    \"keyAchievements\": [\n      \"35% increase in online sales through website redesign\",\n      \"40% increase in organic traffic through SEO strategy\",\n      \"50% increase in client discovery calls through UI/UX improvements\",\n      \"30% customer base expansion through strategic partnerships\",\n      \"3.6 GPA in Computer Programming\"\n    ]\n  },\n  2: {\n    \"title\": \"Software Developer\",\n    \"professionalSummary\": \"With a background in building and managing e-commerce platforms, I pivoted to software development to solve complex problems with code. As a recent Computer Programming graduate (3.6 GPA) with a strong foundation in JavaScript, React, C++, and Python, I apply my business acumen and technical skills to build robust and scalable software.\",\n    \"workExperience\": [\n      {\n        \"title\": \"Web Developer\",\n        \"company\": \"Sowcial\",\n        \"location\": \"Toronto, ON\",\n        \"startDate\": \"2025-03\",\n        \"endDate\": \"2025-10\",\n        \"responsibilities\": [\n          \"Developed a production-ready marketplace using Next.js 15, TypeScript, and Tailwind CSS, converting a Hackathon concept into a scalable web application.\",\n          \"Implemented a comprehensive error handling system with custom reusable components, improving user experience by providing context-aware feedback for all HTTP status codes.\"\n        ],\n        \"technologies\": [\"Next.js 15\", \"TypeScript\", \"Tailwind CSS\"]\n      },\n      {\n        \"title\": \"Ecommerce Specialist\",\n        \"company\": \"Galerie Maya\",\n        \"location\": \"Toronto, ON\",\n        \"startDate\": \"2023-10\",\n        \"endDate\": \"2025-03\",\n        \"responsibilities\": [\n          \"Redesigned website entirely on the Shopify platform, implementing a modern UI and custom JavaScript features that contributed to a 35% increase in online sales.\",\n          \"Drove a 40% increase in organic traffic within six months by executing a targeted SEO strategy, focusing on keyword optimization for product descriptions and creating high-ranking landing pages.\"\n        ],\n        \"technologies\": [\"Shopify\", \"JavaScript\", \"SEO\"],\n        \"achievements\": [\n          \"35% increase in online sales\",\n          \"40% increase in organic traffic\"\n        ]\n      },\n      {\n        \"title\": \"Business Development Executive\",\n        \"company\": \"Galerie Maya\",\n        \"location\": \"Toronto, ON\",\n        \"startDate\": \"2021-02\",\n        \"endDate\": \"2023-10\",\n        \"responsibilities\": [\n          \"Executed a multichannel digital marketing strategy, utilizing Facebook ads and marketplace positioning to drive a 35% increase in overall sales.\",\n          \"Expanded the customer base by 30% by securing sponsorships and representation at high-end events, significantly boosting brand awareness and market penetration.\"\n        ],\n        \"achievements\": [\n          \"35% increase in overall sales\",\n          \"30% customer base expansion\"\n        ]\n      }\n    ],\n    \"projects\": [\n      {\n        \"name\": \"Agri-Tourism Marketplace\",\n        \"date\": \"2025-03\",\n        \"context\": \"Seneca Hackathon 2025 - Finalist\",\n        \"techStack\": [\"HTML\", \"CSS\", \"JavaScript\", \"Node.js\", \"Express\", \"Vercel\"],\n        \"description\": [\n          \"Developed the initial prototype for an agritourism platform during an 8-hour hackathon, focusing on core user flows for browsing and viewing tour details.\",\n          \"Built a mock back-end using Node.js and Express to serve JSON data from local files, simulating a live API for the front-end to consume.\"\n        ]\n      },\n      {\n        \"name\": \"Restaurant Order Management System\",\n        \"date\": \"2024-09 to 2024-12\",\n        \"context\": \"Object Oriented C++ Project\",\n        \"techStack\": [\"C++\", \"Git\", \"GitHub\"],\n        \"description\": [\n          \"Developed a console-based restaurant management application in C++, applying object-oriented principles like inheritance and polymorphism to model menu items and handle billing.\",\n          \"Implemented a dynamic menu system capable of parsing and loading food and drink items from external .csv files, allowing for easy updates without recompiling.\",\n          \"Ensured data persistence for itemized receipts by utilizing file I/O operations, allowing completed bills to be saved and reviewed in subsequent sessions.\"\n        ]\n      }\n    ],\n    \"keyAchievements\": [\n      \"35% increase in online sales through website redesign\",\n      \"40% increase in organic traffic through SEO strategy\",\n      \"50% increase in client discovery calls through UI/UX improvements\",\n      \"30% customer base expansion through strategic partnerships\",\n      \"Seneca Hackathon 2025 Finalist\",\n      \"3.6 GPA in Computer Programming\"\n    ]\n  },\n  3: {\n    \"title\": \"Software Developer\",\n    \"professionalSummary\": \"With 3+ years of experience building solutions for e-commerce, I create web applications that drive real business results. Proficient in HTML, CSS, JavaScript and React, I recently re-architected a company's web presence, leading to a 35% increase in online sales and a 40% boost in organic traffic through targeted development and SEO.\",\n    \"workExperience\": [\n      {\n        \"title\": \"Web Developer\",\n        \"company\": \"Sowcial\",\n        \"location\": \"Toronto, ON\",\n        \"startDate\": \"2025-03\",\n        \"endDate\": \"2025-10\",\n        \"responsibilities\": [\n          \"Developed a production-ready marketplace using Next.js 15, TypeScript, and Tailwind CSS, converting a Hackathon concept into a scalable web application.\",\n          \"Implemented a comprehensive error handling system with custom reusable components, improving user experience by providing context-aware feedback for all HTTP status codes.\",\n          \"Established a three-tier deployment pipeline on Google Cloud Platform, automating builds and enhancing security by integrating Google Secret Manager to eliminate hardcoded tokens.\"\n        ],\n        \"technologies\": [\"Next.js 15\", \"TypeScript\", \"Tailwind CSS\", \"Google Cloud Platform\", \"Google Secret Manager\"]\n      },\n      {\n        \"title\": \"Ecommerce Specialist\",\n        \"company\": \"Galerie Maya\",\n        \"location\": \"Toronto, ON\",\n        \"startDate\": \"2023-10\",\n        \"endDate\": \"2025-03\",\n        \"responsibilities\": [\n          \"Redesigned website entirely on the Shopify platform, implementing a modern UI and custom JavaScript features that contributed to a 35% increase in online sales.\",\n          \"Drove a 40% increase in organic traffic within six months by executing a targeted SEO strategy, focusing on keyword optimization for product descriptions and creating high-ranking landing pages.\"\n        ],\n        \"technologies\": [\"Shopify\", \"JavaScript\", \"SEO\"],\n        \"achievements\": [\n          \"35% increase in online sales\",\n          \"40% increase in organic traffic\"\n        ]\n      },\n      {\n        \"title\": \"Web Developer\",\n        \"company\": \"Frenzr Social Media Agency\",\n        \"location\": \"Montreal, QC\",\n        \"startDate\": \"2023-05\",\n        \"endDate\": \"2023-08\",\n        \"responsibilities\": [\n          \"Overhauled the agency's website UI/UX on the Squarespace platform, integrating an automated calendar booking system that directly increased the volume of inbound client discovery calls by 50%.\"\n        ],\n        \"technologies\": [\"Squarespace\"],\n        \"achievements\": [\n          \"50% increase in inbound client discovery calls\"\n        ]\n      }\n    ],\n    \"projects\": [\n      {\n        \"name\": \"Agri-Tourism Marketplace\",\n        \"date\": \"2025-03\",\n        \"context\": \"Seneca Hackathon 2025 - Finalist\",\n        \"techStack\": [\"HTML\", \"CSS\", \"JavaScript\", \"Node.js\", \"Express\", \"Vercel\"],\n        \"description\": [\n          \"Developed the initial prototype for an agritourism platform during an 8-hour hackathon, focusing on core user flows for browsing and viewing tour details.\",\n          \"Built a mock back-end using Node.js and Express to serve JSON data from local files, simulating a live API for the front-end to consume.\"\n        ]\n      }\n    ],\n    \"skills\": {\n      \"programmingLanguages\": [\"CSS3\", \"HTML5\", \"JavaScript\", \"Python\", \"TypeScript\"],\n      \"toolsAndPlatforms\": [\"GitHub\", \"Google Cloud Platform (GCP)\", \"RESTful APIs\", \"UI/UX Principles\"]\n    },\n    \"keyAchievements\": [\n      \"35% increase in online sales through website redesign\",\n      \"40% increase in organic traffic through SEO strategy\",\n      \"50% increase in client discovery calls through UI/UX improvements\",\n      \"Seneca Hackathon 2025 Finalist\",\n      \"3.6 GPA in Computer Programming\"\n    ]\n  },\n  4: {\n    \"title\": \"Front-end Developer\",\n    \"professionalSummary\": \"With 3+ years of experience building solutions for e-commerce, I create web applications that drive real business results. Proficient in HTML, CSS, JavaScript and React, I recently re-architected a company's web presence, leading to a 35% increase in online sales and a 40% boost in organic traffic through targeted development and SEO.\",\n    \"workExperience\": [\n      {\n        \"title\": \"Web Developer\",\n        \"company\": \"Sowcial\",\n        \"location\": \"Toronto, ON\",\n        \"startDate\": \"2025-03\",\n        \"endDate\": \"2025-10\",\n        \"responsibilities\": [\n          \"Developed a production-ready marketplace using Next.js 15, TypeScript, and Tailwind CSS, converting a Hackathon concept into a scalable web application.\",\n          \"Established a three-tier deployment pipeline on Google Cloud Platform, automating builds and enhancing security by integrating Google Secret Manager to eliminate hardcoded tokens.\",\n          \"Implemented a comprehensive error handling system with custom reusable components, improving user experience by providing context-aware feedback for all HTTP status codes.\"\n        ],\n        \"technologies\": [\"Next.js 15\", \"TypeScript\", \"Tailwind CSS\", \"Google Cloud Platform\", \"Google Secret Manager\"]\n      },\n      {\n        \"title\": \"Ecommerce Specialist\",\n        \"company\": \"Galerie Maya\",\n        \"location\": \"Toronto, ON\",\n        \"startDate\": \"2023-10\",\n        \"endDate\": \"2025-03\",\n        \"responsibilities\": [\n          \"Redesigned website entirely on the Shopify platform, implementing a modern UI and custom JavaScript features that contributed to a 35% increase in online sales.\",\n          \"Drove a 40% increase in organic traffic within six months by executing a targeted SEO strategy, focusing on keyword optimization for product descriptions and creating high-ranking landing pages.\",\n          \"Analyzed website performance using Google Analytics, translating visitor data into actionable UI/UX improvements that led to a 35% increase in sales conversion rates.\"\n        ],\n        \"technologies\": [\"Shopify\", \"JavaScript\", \"SEO\", \"Google Analytics\"],\n        \"achievements\": [\n          \"35% increase in online sales\",\n          \"40% increase in organic traffic\",\n          \"35% increase in sales conversion rates\"\n        ]\n      },\n      {\n        \"title\": \"Web Developer\",\n        \"company\": \"Frenzr Social Media Agency\",\n        \"location\": \"Montreal, QC\",\n        \"startDate\": \"2023-05\",\n        \"endDate\": \"2023-08\",\n        \"responsibilities\": [\n          \"Overhauled the agency's website UI/UX on the Squarespace platform, integrating an automated calendar booking system that directly increased the volume of inbound client discovery calls by 50%.\",\n          \"Developed and launched several key pages, including 'Clients,' 'Team,' and 'Contact Us,' applying custom CSS modifications to create a more professional and cohesive online presence.\"\n        ],\n        \"technologies\": [\"Squarespace\", \"CSS\"],\n        \"achievements\": [\n          \"50% increase in inbound client discovery calls\"\n        ]\n      }\n    ],\n    \"projects\": [\n      {\n        \"name\": \"Agri-Tourism Marketplace\",\n        \"date\": \"2025-03\",\n        \"context\": \"Seneca Hackathon 2025 - Finalist\",\n        \"techStack\": [\"HTML\", \"CSS\", \"JavaScript\", \"Node.js\", \"Express\", \"Vercel\"],\n        \"description\": [\n          \"Developed the initial prototype for an agritourism platform during an 8-hour hackathon, focusing on core user flows for browsing and viewing tour details.\",\n          \"Built a mock back-end using Node.js and Express to serve JSON data from local files, simulating a live API for the front-end to consume.\"\n        ]\n      }\n    ],\n    \"skills\": {\n      \"programmingLanguages\": [\"CSS3\", \"HTML5\", \"JavaScript\", \"Python\", \"TypeScript\"],\n      \"frameworksAndLibraries\": [\"Next.js\", \"React\"],\n      \"toolsAndPlatforms\": [\"Figma\", \"Google Cloud Platform (GCP)\", \"Responsive Web Design\", \"RESTful APIs\"]\n    },\n    \"keyAchievements\": [\n      \"35% increase in online sales through website redesign\",\n      \"40% increase in organic traffic through SEO strategy\",\n      \"50% increase in client discovery calls through UI/UX improvements\",\n      \"35% increase in sales conversion rates\",\n      \"Seneca Hackathon 2025 Finalist\",\n      \"3.6 GPA in Computer Programming\"\n    ]\n  }\n};\n\n// Get the selected resume based on recommended version\nconst selectedResume = resumeVersions[version];\n\n// Return combined data with score, job data, AND full resume\nreturn {\n  json: {\n    // Score breakdown\n    scoreMatch: parsed.score.match,\n    scoreSalary: parsed.score.salary,\n    scoreRemote: parsed.score.remote,\n    scoreBenefits: parsed.score.benefits,\n    scoreFulltime: parsed.score.fulltime,\n    scoreTotal: parsed.score.total,\n    recommendedResumeVersion: version,\n    reasoning: parsed.reasoning,\n\n    // Job data\n    title: jobData.title,\n    descriptionText: jobData.descriptionText,\n    companyName: jobData.companyName,\n    jobUrl: jobData.jobUrl,\n    salary: jobData.salary?.salaryText || '',\n    location: jobData.location,\n    city: jobData.location?.city || '',\n    datePublished: jobData.datePublished,\n    isRemote: jobData.isRemote,\n    expired: jobData.expired,\n    benefits: jobData.benefits || '',\n    jobType: jobData.jobType || [],\n    platform: jobData.platform,\n\n    // Full resume data for the recommended version\n    candidateResume: selectedResume\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2368,
+        144
+      ],
+      "id": "57694036-88e6-4c72-afd8-2ca69c73e570",
+      "name": "JSONify score and reasoning"
+    },
+    {
+      "parameters": {
+        "amount": 1,
+        "unit": "minutes"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        3840,
+        224
+      ],
+      "id": "5c86de09-db1c-4ec0-b5b2-f8453451d0f7",
+      "name": "Wait",
+      "webhookId": "3cd25351-c5e6-4543-85a9-1935f5662ad7"
+    },
+    {
+      "parameters": {
+        "batchSize": 10,
+        "options": {
+          "reset": false
+        }
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1792,
+        128
+      ],
+      "id": "4297e2ef-c54a-4344-aaa5-26d974cb6173",
+      "name": "Loop Over dataset items"
+    },
+    {
+      "parameters": {
+        "amount": 60
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2816,
+        128
+      ],
+      "id": "ca80d6ba-6862-4ebc-98da-fe37f66d9634",
+      "name": "Wait1",
+      "webhookId": "a3e23cad-5615-4a06-96e1-efc693299923"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get all items from the dataset\nconst items = $input.all();\n\n// Use a Map to track unique jobs by URL\nconst uniqueJobs = new Map();\n\nitems.forEach(item => {\n  const jobUrl = item.json.jobUrl;\n\n  // Only keep the first occurrence of each URL\n  if (!uniqueJobs.has(jobUrl)) {\n    uniqueJobs.set(jobUrl, item);\n  }\n});\n\n// Convert back to array\nconst uniqueItems = Array.from(uniqueJobs.values());\n\nconsole.log(`Original items: ${items.length}`);\nconsole.log(`Unique items: ${uniqueItems.length}`);\nconsole.log(`Duplicates removed from batch: ${items.length - uniqueItems.length}`);\n\nreturn uniqueItems;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        128
+      ],
+      "id": "4634dcbc-261f-4c83-aab6-fd26fb204724",
+      "name": "Remove Duplicates in Current Batch"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "YOUR_GOOGLE_SHEETS_DOCUMENT_ID",
+          "mode": "list",
+          "cachedResultName": "Job Listings Database",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEETS_DOCUMENT_ID/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEETS_DOCUMENT_ID/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1344,
+        128
+      ],
+      "id": "64e78f1b-696c-4131-acf3-48708c3df8d7",
+      "name": "Get All Existing Job URLs",
+      "executeOnce": true,
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "xMntBXBmoN3qkY6T",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the new jobs from Apify\nconst newJobs = $('Remove Duplicates in Current Batch').all();\n\n// Get existing job URLs from Google Sheets\nconst existingJobsData = $('Get All Existing Job URLs').all();\n\n// Extract just the URLs from the sheet (assuming \"Link\" column exists)\nconst existingUrls = new Set(\n  existingJobsData.map(item => item.json.Link).filter(Boolean)\n);\n\n// Filter out jobs that already exist\nconst uniqueNewJobs = newJobs.filter(job => {\n  const jobUrl = job.json.jobUrl;\n  return !existingUrls.has(jobUrl);\n});\n\n// Log the results\nconsole.log(`Total new jobs from Apify: ${newJobs.length}`);\nconsole.log(`Existing jobs in sheet: ${existingUrls.size}`);\nconsole.log(`Unique new jobs to process: ${uniqueNewJobs.length}`);\nconsole.log(`Duplicates skipped: ${newJobs.length - uniqueNewJobs.length}`);\n\n// Return only the unique jobs\nreturn uniqueNewJobs;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1568,
+        128
+      ],
+      "id": "a88c3ea1-aadb-4b0e-9a4b-6040e0b0a85c",
+      "name": "Filter Out Duplicate Jobs"
+    },
+    {
+      "parameters": {
+        "actorId": {
+          "__rl": true,
+          "value": "hKByXkMQaC5Qt9UMN",
+          "mode": "list",
+          "cachedResultName": "Linkedin Jobs Scraper - PPR (curious_coder/linkedin-jobs-scraper)",
+          "cachedResultUrl": "https://console.apify.com/actors/hKByXkMQaC5Qt9UMN/input"
+        },
+        "customBody": "{\n    \"count\": 100,\n    \"scrapeCompany\": true,\n    \"urls\": [\n        \"https://www.linkedin.com/jobs/search?keywords=Software%20Developer&location=north%20york&geoId=&trk=public_jobs_jobs-search-bar_search-submit&position=1&pageNum=0\"\n    ]\n}",
+        "timeout": 180
+      },
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        224,
+        224
+      ],
+      "id": "88f9c57b-1124-4c02-87a8-0491912ec762",
+      "name": "Run Linkedin Actor",
+      "credentials": {
+        "apifyApi": {
+          "id": "hGvpsAZZaeBRg3Tb",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\n  return items.map(item => ({\n    json: {\n      title: item.json.title,\n      companyName: item.json.companyName,\n      jobUrl: item.json.link,  // LinkedIn uses \"link\"\n      location: {\n        city: item.json.location  // LinkedIn location is string\n      },\n      salary: {\n        salaryText: item.json.salaryInfo?.join(' - ') || ''  // Convert array\n      },\n      isRemote: item.json.location?.toLowerCase().includes('remote') || false,\n      benefits: Array.isArray(item.json.benefits) ? item.json.benefits.join(', ') : '',\n      jobType: [item.json.employmentType || ''],  // Single value → array\n      descriptionText: item.json.descriptionText,\n      datePublished: item.json.postedAt,\n      expired: false,\n      platform: 'LinkedIn'\n    }\n  }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        224
+      ],
+      "id": "567b0da4-016f-49b0-b708-64af5b8bbd4f",
+      "name": "Normalize LinkedIn Data"
+    },
+    {
+      "parameters": {
+        "jsCode": "  const items = $input.all();\n\n  return items.map(item => ({\n    json: {\n      ...item.json,\n      platform: 'Indeed'\n    }\n  }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        32
+      ],
+      "id": "d915605a-910c-44cc-bcbf-6b7c4b83862a",
+      "name": "Add Platform"
+    },
+    {
+      "parameters": {
+        "resource": "Datasets",
+        "datasetId": "={{ $('Run Indeed Actor').item.json.defaultDatasetId }}",
+        "offset": {}
+      },
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        448,
+        32
+      ],
+      "id": "4ed6025d-1b39-4daa-a21e-403250cfabd1",
+      "name": "Get Indeed Dataset",
+      "credentials": {
+        "apifyApi": {
+          "id": "hGvpsAZZaeBRg3Tb",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "Datasets",
+        "datasetId": "={{ $json.defaultDatasetId }}",
+        "offset": {}
+      },
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        448,
+        224
+      ],
+      "id": "4d6c6b40-5255-4645-a33c-6fda75f2a047",
+      "name": "Get Linkedin Dataset",
+      "credentials": {
+        "apifyApi": {
+          "id": "hGvpsAZZaeBRg3Tb",
+          "name": "Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        896,
+        128
+      ],
+      "id": "877b90cc-b2ae-4b8e-bbec-42fac1cd0671",
+      "name": "Merge Jobs"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Run Indeed Actor",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Run Linkedin Actor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run Indeed Actor": {
+      "main": [
+        [
+          {
+            "node": "Get Indeed Dataset",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Score and Reason": {
+      "main": [
+        [
+          {
+            "node": "JSONify score and reasoning",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If score more than 5": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Cover Letter": {
+      "main": [
+        [
+          {
+            "node": "JSONify Cover Letter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "JSONify Cover Letter": {
+      "main": [
+        [
+          {
+            "node": "Append or update job in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "JSONify score and reasoning": {
+      "main": [
+        [
+          {
+            "node": "If score more than 5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update job in sheet": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Loop Over dataset items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over dataset items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Score and Reason",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Generate Cover Letter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remove Duplicates in Current Batch": {
+      "main": [
+        [
+          {
+            "node": "Get All Existing Job URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get All Existing Job URLs": {
+      "main": [
+        [
+          {
+            "node": "Filter Out Duplicate Jobs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Out Duplicate Jobs": {
+      "main": [
+        [
+          {
+            "node": "Loop Over dataset items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run Linkedin Actor": {
+      "main": [
+        [
+          {
+            "node": "Get Linkedin Dataset",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize LinkedIn Data": {
+      "main": [
+        [
+          {
+            "node": "Merge Jobs",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Add Platform": {
+      "main": [
+        [
+          {
+            "node": "Merge Jobs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Indeed Dataset": {
+      "main": [
+        [
+          {
+            "node": "Add Platform",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Linkedin Dataset": {
+      "main": [
+        [
+          {
+            "node": "Normalize LinkedIn Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Jobs": {
+      "main": [
+        [
+          {
+            "node": "Remove Duplicates in Current Batch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "bbf2ce84-d68d-4256-81ee-e0b133354c5c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "YOUR_N8N_INSTANCE_ID"
+  },
+  "id": "V2HLHocormazLvy5",
+  "tags": []
+}
