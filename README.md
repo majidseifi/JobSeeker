@@ -6,12 +6,14 @@ Automates job searching on Indeed and LinkedIn using n8n. Scores jobs with AI, g
 
 ## Features
 
-- Scrapes jobs from Indeed and LinkedIn daily
-- Removes duplicates to save on API costs (26-69% savings)
+- Scrapes jobs from Indeed and LinkedIn daily using 4 parallel searches (Software Developer + Web Developer on both platforms)
+- Filters out senior and backend positions automatically
+- Removes duplicates and jobs older than 7 days to save on API costs
 - AI scores jobs 0-10 based on resume fit, salary, remote work, and benefits
 - Recommends which resume version to use (supports 4 versions)
 - Auto-generates cover letters for high-scoring jobs (>5/10)
 - Stores all data in Google Sheets with application tracking
+- Email notifications when new jobs are found
 
 ## How It Works
 
@@ -20,28 +22,34 @@ Automates job searching on Indeed and LinkedIn using n8n. Scores jobs with AI, g
 
 ```
 Schedule Trigger (Daily at 9 AM)
-  ├─→ Indeed Actor → Get Dataset → Add Platform ─┐
-  └─→ LinkedIn Actor → Get Dataset → Normalize ──┤
+  ├─→ Indeed (Web Dev) → Get Dataset → Add Platform ────────┐
+  ├─→ Indeed (Software Dev) → Get Dataset → Add Platform ────┤
+  ├─→ LinkedIn (Web Dev) → Get Dataset → Normalize ──────────┤
+  └─→ LinkedIn (Software Dev) → Get Dataset → Normalize ─────┤
+                                                              ↓
+                                                       [MERGE 4 SOURCES]
+                                                              ↓
+                                 Remove Duplicates (Senior, Backend, MERN)
+                                                              ↓
+                                         Get All Existing Job URLs
+                                                              ↓
+                              Filter Out Duplicates & Jobs Older Than 7 Days
+                                                              ↓
+                                         Loop Over Dataset Items
+                                                              ↓
+                                           Score and Reason (AI)
+                                                              ↓
+                                         JSONify Score & Reasoning
+                                                              ↓
+                                               If Score > 5?
+                                                   ↓ Yes
+                                         Generate Cover Letter (AI)
                                                    ↓
-                                            [MERGE JOBS]
+                                         Append to Google Sheets
                                                    ↓
-                              Remove Duplicates in Current Batch
+                                            [Loop Completes]
                                                    ↓
-                                  Get All Existing Job URLs
-                                                   ↓
-                                  Filter Out Duplicate Jobs
-                                                   ↓
-                                  Loop Over Dataset Items
-                                                   ↓
-                                    Score and Reason (AI)
-                                                   ↓
-                                  JSONify Score & Reasoning
-                                                   ↓
-                                    If Score > 5?
-                                        ↓ Yes
-                              Generate Cover Letter (AI)
-                                        ↓
-                              Append to Google Sheets
+                                      Aggregate Results & Send Email
 ```
 
 ## Setup
@@ -52,6 +60,7 @@ Schedule Trigger (Daily at 9 AM)
 - Apify account
 - Google Gemini API key
 - Google Sheets
+- MailerSend account (or any email service for notifications)
 
 **Installation:**
 
@@ -72,15 +81,18 @@ Schedule Trigger (Daily at 9 AM)
 4. Create a Google Sheet with columns: Title, Platform, Date, Company Name, City, Expired, Remote, Link, Rating, Resume Version, Cover Letter, Salary, Job Description, Status
 
 5. Update these nodes:
-   - Search parameters in Indeed/LinkedIn actors
+   - Search parameters in Indeed/LinkedIn actors (4 nodes: Web Dev + Software Dev for each platform)
    - Google Sheets document ID
    - Your resume versions in JSONify node
+   - MailerSend API token and email addresses in Send Email node
 
 See `SETUP_GUIDE.md` for detailed steps.
 
 ## Customization
 
-**Search parameters** - Edit the actor nodes to change location, keywords, or job type
+**Search parameters** - Edit the 4 actor nodes to change location, keywords, or job type (2 Indeed + 2 LinkedIn)
+
+**Job filtering** - Edit the "Remove Duplicates in Current Batch" node to filter out unwanted job titles (currently filters: Senior, Backend, MERN)
 
 **Scoring criteria** - Modify the "Score and Reason" node:
 
@@ -100,12 +112,14 @@ All jobs saved with AI rating, recommended resume version, and personalized cove
 
 ## Performance
 
-With 100 jobs/day:
+With 4 parallel searches (200 jobs/day total):
 
-- ~23 duplicates filtered
-- ~77 unique jobs scored
-- ~38 cover letters generated
-- Saves ~26% on AI costs
+- Automatically filters: Senior positions, Backend roles, MERN developers
+- Removes duplicates across all 4 sources
+- Filters jobs older than 7 days
+- ~100-150 unique jobs scored after filtering
+- ~50-75 cover letters generated for high-scoring jobs
+- Email notification sent with results summary
 
 ## Author
 

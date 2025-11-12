@@ -114,6 +114,25 @@ docker run -it --rm \
    - Name it "Google Sheets account"
    - Click "Save"
 
+### 4. MailerSend API (Optional but Recommended)
+
+**Step-by-step:**
+1. Go to [mailersend.com](https://mailersend.com)
+2. Sign up for a free account
+3. Verify your sending domain (or use their test domain)
+4. Navigate to Settings → API Tokens
+5. Create a new API token
+6. Copy the token
+7. In the workflow:
+   - Open "Send Email via MailerSend" node
+   - Replace `YOUR_MAILERSEND_API_TOKEN` with your token
+   - Replace `YOUR_SENDER_EMAIL` with your verified sender email
+   - Replace `YOUR_RECIPIENT_EMAIL` with your email address
+
+**Free Tier:** 12,000 emails/month
+
+**Alternative:** You can use any email service (SendGrid, SMTP, etc.) or disable email notifications by disconnecting this node.
+
 ---
 
 ## Google Sheets Setup
@@ -165,10 +184,14 @@ docker run -it --rm \
 After importing, you need to assign credentials to nodes:
 
 **Nodes requiring Apify credentials:**
-- Run Indeed Actor
-- Get Indeed Dataset
-- Run Linkedin Actor
-- Get Linkedin Dataset
+- Run Indeed - Web Dev
+- Run Indeed - Software Dev
+- Get Indeed Dataset - Web Dev
+- Get Indeed Dataset - Software Dev
+- Run Linkedin - Web Dev
+- Run Linkedin - Software Dev
+- Get Linkedin - Web Dev
+- Get Linkedin - Software Dev
 
 **Nodes requiring Google Gemini credentials:**
 - Score and Reason
@@ -203,26 +226,27 @@ After importing, you need to assign credentials to nodes:
 
 ### 2. Configure Job Search Parameters
 
-**Indeed (Run Indeed Actor node):**
+The workflow uses 4 parallel search nodes. Update each one with your preferences:
+
+**Indeed - Web Dev & Indeed - Software Dev nodes:**
 ```json
 {
   "country": "ca",              // Change to your country code
   "location": "North York",     // Change to your location
   "maxRows": 50,                // Max jobs per run
-  "query": "web developer",     // Change to your job search
+  "query": "web developer",     // One node: "web developer", other: "software developer"
   "jobType": "fulltime",        // fulltime, parttime, contract
-  "remote": "remote",           // remote, hybrid, onsite
   "fromDays": "1"               // Jobs from last N days
 }
 ```
 
-**LinkedIn (Run Linkedin Actor node):**
+**LinkedIn - Web Dev & LinkedIn - Software Dev nodes:**
 ```json
 {
   "count": 100,                 // Max jobs to scrape
   "scrapeCompany": true,        // Get company details
   "urls": [
-    "YOUR_LINKEDIN_SEARCH_URL"  // Update with your search URL
+    "YOUR_LINKEDIN_SEARCH_URL"  // Update with your search URL (one for "web developer", one for "software developer")
   ]
 }
 ```
@@ -233,7 +257,22 @@ After importing, you need to assign credentials to nodes:
 3. Copy the URL from browser address bar
 4. Paste in the workflow configuration
 
-### 3. Add Your Resume Data
+### 3. Configure Job Filters (Optional)
+
+Edit the `Remove Duplicates in Current Batch` node to filter unwanted job titles:
+
+**Currently filters:**
+- Senior positions (includes "senior" or "sr.")
+- Backend positions
+- MERN developer positions
+
+**To customize:**
+1. Click on the node
+2. Find the filter conditions in the JavaScript code
+3. Add or remove filters based on your preferences
+4. Common filters: "principal", "staff", "lead", "manager", etc.
+
+### 4. Add Your Resume Data
 
 Edit the `JSONify score and reasoning` node:
 1. Click on the node
@@ -244,14 +283,14 @@ Edit the `JSONify score and reasoning` node:
 
 Refer to `Resumes/` folder for sample format.
 
-### 4. Adjust Scoring Criteria (Optional)
+### 5. Adjust Scoring Criteria (Optional)
 
 Edit `Score and Reason` node to change:
 - Salary thresholds
 - Scoring weights
 - Resume version descriptions
 
-### 5. Customize Cover Letter Style (Optional)
+### 6. Customize Cover Letter Style (Optional)
 
 Edit `Generate Cover Letter` node prompt to adjust:
 - Tone (formal vs casual)
@@ -376,13 +415,16 @@ After successful setup:
 
 ## Cost Estimate (Monthly)
 
-- Apify: Free tier ($5 credit)
-- Google Gemini: Free tier (1,500 requests/day)
+- Apify: Free tier ($5 credit) - enough for ~200 jobs/day
+- Google Gemini: Free tier (1,500 requests/day) - covers scoring and cover letters
 - Google Sheets: Free
+- MailerSend: Free tier (12,000 emails/month) - more than enough for daily notifications
 - n8n Desktop: Free
 - n8n Cloud: $20/month (optional)
 
 **Total: $0-20/month depending on usage and n8n hosting choice**
+
+Note: With 4 parallel searches, you may need to upgrade Apify if you exceed the free tier.
 
 ---
 
