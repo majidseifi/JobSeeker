@@ -1,0 +1,104 @@
+{
+  "personalInfo": {
+    "name": "Majid Seifi Kashani",
+    "location": "North York, ON",
+    "phone": "(416) 200-4008",
+    "email": "majidseifikashani@gmail.com",
+    "linkedin": "linkedin.com/in/majidseifi",
+    "website": "seifi.dev",
+    "title": "Software Developer"
+  },
+  "professionalSummary": "With a background in building and managing e-commerce platforms, I pivoted to software development to solve complex problems with code. As a recent Computer Programming graduate (3.6 GPA) with a strong foundation in JavaScript, React, C++, and Python, I apply my business acumen and technical skills to build robust and scalable software.",
+  "workExperience": [
+    {
+      "title": "Web Developer",
+      "company": "Sowcial",
+      "location": "Toronto, ON",
+      "startDate": "2025-03",
+      "endDate": "2025-10",
+      "responsibilities": [
+        "Developed a production-ready marketplace using Next.js 15, TypeScript, and Tailwind CSS, converting a Hackathon concept into a scalable web application.",
+        "Implemented a comprehensive error handling system with custom reusable components, improving user experience by providing context-aware feedback for all HTTP status codes.",
+        "Established a three-tier deployment pipeline on Google Cloud Platform, automating builds and enhancing security by integrating Google Secret Manager to eliminate hardcoded tokens."
+      ],
+      "technologies": ["Next.js 15", "TypeScript", "Tailwind CSS", "Google Cloud Platform", "Google Secret Manager"]
+    },
+    {
+      "title": "Ecommerce Specialist",
+      "company": "Galerie Maya",
+      "location": "Toronto, ON",
+      "startDate": "2023-10",
+      "endDate": "2025-03",
+      "responsibilities": [
+        "Redesigned website entirely on the Shopify platform, implementing a modern UI and custom JavaScript features that contributed to a 35% increase in online sales.",
+        "Drove a 40% increase in organic traffic within six months by executing a targeted SEO strategy, focusing on keyword optimization for product descriptions and creating high-ranking landing pages."
+      ],
+      "technologies": ["Shopify", "JavaScript", "SEO"],
+      "achievements": [
+        "35% increase in online sales",
+        "40% increase in organic traffic"
+      ]
+    },
+    {
+      "title": "Business Development Executive",
+      "company": "Galerie Maya",
+      "location": "Toronto, ON",
+      "startDate": "2021-02",
+      "endDate": "2023-10",
+      "responsibilities": [
+        "Executed a multichannel digital marketing strategy, utilizing Facebook ads and marketplace positioning to drive a 35% increase in overall sales.",
+        "Expanded the customer base by 30% by securing sponsorships and representation at high-end events, significantly boosting brand awareness and market penetration."
+      ],
+      "achievements": [
+        "35% increase in overall sales",
+        "30% customer base expansion"
+      ]
+    },
+    {
+      "title": "Web Developer",
+      "company": "Frenzr Social Media Agency",
+      "location": "Montreal, QC",
+      "startDate": "2023-05",
+      "endDate": "2023-08",
+      "responsibilities": [
+        "Overhauled the agency's website UI/UX on the Squarespace platform, integrating an automated calendar booking system that directly increased the volume of inbound client discovery calls by 50%."
+      ],
+      "technologies": ["Squarespace"],
+      "achievements": [
+        "50% increase in inbound client discovery calls"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "Bachelor Of Applied Science (BASc) In Computer Science",
+      "institution": "York University",
+      "location": "Toronto, ON",
+      "startDate": "2025-09",
+      "endDate": "2028-08",
+      "status": "In Progress"
+    },
+    {
+      "degree": "College Diploma In Computer Programming",
+      "institution": "Seneca Polytechnic",
+      "location": "Toronto, ON",
+      "gpa": "3.6/4.0",
+      "startDate": "2024-05",
+      "endDate": "2025-08",
+      "status": "Completed"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Restaurant Order Management System",
+      "date": "2024-09 to 2024-12",
+      "context": "Object Oriented C++ Project",
+      "techStack": ["C++", "Git", "GitHub"],
+      "description": [
+        "Developed a console-based restaurant management application in C++, applying object-oriented principles like inheritance and polymorphism to model menu items and handle billing.",
+        "Implemented a dynamic menu system capable of parsing and loading food and drink items from external .csv files, allowing for easy updates without recompiling.",
+        "Ensured data persistence for itemized receipts by utilizing file I/O operations, allowing completed bills to be saved and reviewed in subsequent sessions."
+      ]
+    }
+  ]
+}
