@@ -37,38 +37,14 @@
         "35% increase in online sales",
         "40% increase in organic traffic"
       ]
-    },
-    {
-      "title": "Business Development Executive",
-      "company": "Galerie Maya",
-      "location": "Toronto, ON",
-      "startDate": "2021-02",
-      "endDate": "2023-10",
-      "responsibilities": [
-        "Executed a multichannel digital marketing strategy, utilizing Facebook ads and marketplace positioning to drive a 35% increase in overall sales.",
-        "Expanded the customer base by 30% by securing sponsorships and representation at high-end events, significantly boosting brand awareness and market penetration."
-      ],
-      "achievements": [
-        "35% increase in overall sales",
-        "30% customer base expansion"
-      ]
     }
   ],
   "education": [
-    {
-      "degree": "Bachelor Of Applied Science (BASc) In Computer Science",
-      "institution": "York University",
-      "location": "Toronto, ON",
-      "startDate": "2025-09",
-      "endDate": "2028-08",
-      "status": "In Progress"
-    },
     {
       "degree": "College Diploma In Computer Programming",
       "institution": "Seneca Polytechnic",
       "location": "Toronto, ON",
       "gpa": "3.6/4.0",
-      "startDate": "2024-05",
       "endDate": "2025-08",
       "status": "Completed"
     }
@@ -81,7 +57,8 @@
       "techStack": ["HTML", "CSS", "JavaScript", "Node.js", "Express", "Vercel"],
       "description": [
         "Developed the initial prototype for an agritourism platform during an 8-hour hackathon, focusing on core user flows for browsing and viewing tour details.",
-        "Built a mock back-end using Node.js and Express to serve JSON data from local files, simulating a live API for the front-end to consume."
+        "Built a mock back-end using Node.js and Express to serve JSON data from local files, simulating a live API for the front-end to consume.",
+        "Configured the project for serverless deployment using a vercel.json file, demonstrating an early understanding of modern front-end hosting and API routing."
       ]
     },
     {
@@ -95,5 +72,10 @@
         "Ensured data persistence for itemized receipts by utilizing file I/O operations, allowing completed bills to be saved and reviewed in subsequent sessions."
       ]
     }
-  ]
+  ],
+  "skills": {
+    "toolsAndPlatforms": ["Git", "GitHub", "Google Cloud Platform (GCP)", "MongoDB", "PostgreSQL", "SEO", "Vercel"],
+    "frameworksAndLibraries": ["Express", "Next.js", "Node.js", "React", "Tailwind CSS"],
+    "programmingLanguages": ["C++", "CSS3", "HTML5", "JavaScript", "Python", "TypeScript"]
+  }
 }

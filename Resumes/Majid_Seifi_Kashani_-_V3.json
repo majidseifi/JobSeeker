@@ -6,7 +6,7 @@
     "email": "majidseifikashani@gmail.com",
     "linkedin": "linkedin.com/in/majidseifi",
     "website": "seifi.dev",
-    "title": "Software Developer"
+    "title": "Web Developer"
   },
   "professionalSummary": "With 3+ years of experience building solutions for e-commerce, I create web applications that drive real business results. Proficient in HTML, CSS, JavaScript and React, I recently re-architected a company's web presence, leading to a 35% increase in online sales and a 40% boost in organic traffic through targeted development and SEO.",
   "workExperience": [
@@ -71,19 +71,10 @@
   ],
   "education": [
     {
-      "degree": "Bachelor Of Applied Science (BASc) In Computer Science",
-      "institution": "York University",
-      "location": "Toronto, ON",
-      "startDate": "2025-09",
-      "endDate": "2028-08",
-      "status": "In Progress"
-    },
-    {
       "degree": "College Diploma In Computer Programming",
       "institution": "Seneca Polytechnic",
       "location": "Toronto, ON",
       "gpa": "3.6/4.0",
-      "startDate": "2024-05",
       "endDate": "2025-08",
       "status": "Completed"
     }
@@ -102,6 +93,7 @@
   ],
   "skills": {
     "programmingLanguages": ["CSS3", "HTML5", "JavaScript", "Python", "TypeScript"],
+    "frameworksAndLibraries": ["Bootstrap", "Express", "Next.js", "Node.js", "React", "Tailwind CSS"],
     "toolsAndPlatforms": ["GitHub", "Google Cloud Platform (GCP)", "RESTful APIs", "UI/UX Principles"]
   }
 }

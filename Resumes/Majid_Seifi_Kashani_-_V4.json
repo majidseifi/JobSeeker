@@ -18,8 +18,8 @@
       "endDate": "2025-10",
       "responsibilities": [
         "Developed a production-ready marketplace using Next.js 15, TypeScript, and Tailwind CSS, converting a Hackathon concept into a scalable web application.",
-        "Established a three-tier deployment pipeline on Google Cloud Platform, automating builds and enhancing security by integrating Google Secret Manager to eliminate hardcoded tokens.",
-        "Implemented a comprehensive error handling system with custom reusable components, improving user experience by providing context-aware feedback for all HTTP status codes."
+        "Implemented a comprehensive error handling system with custom reusable components, improving user experience by providing context-aware feedback for all HTTP status codes.",
+        "Established a three-tier deployment pipeline on Google Cloud Platform, automating builds and enhancing security by integrating Google Secret Manager to eliminate hardcoded tokens."
       ],
       "technologies": ["Next.js 15", "TypeScript", "Tailwind CSS", "Google Cloud Platform", "Google Secret Manager"]
     },
@@ -59,19 +59,10 @@
   ],
   "education": [
     {
-      "degree": "Bachelor Of Applied Science (BASc) In Computer Science",
-      "institution": "York University",
-      "location": "Toronto, ON",
-      "startDate": "2025-09",
-      "endDate": "2028-08",
-      "status": "In Progress"
-    },
-    {
       "degree": "College Diploma In Computer Programming",
       "institution": "Seneca Polytechnic",
       "location": "Toronto, ON",
       "gpa": "3.6/4.0",
-      "startDate": "2024-05",
       "endDate": "2025-08",
       "status": "Completed"
     }
@@ -84,13 +75,14 @@
       "techStack": ["HTML", "CSS", "JavaScript", "Node.js", "Express", "Vercel"],
       "description": [
         "Developed the initial prototype for an agritourism platform during an 8-hour hackathon, focusing on core user flows for browsing and viewing tour details.",
-        "Built a mock back-end using Node.js and Express to serve JSON data from local files, simulating a live API for the front-end to consume."
+        "Built a mock back-end using Node.js and Express to serve JSON data from local files, simulating a live API for the front-end to consume.",
+        "Configured the project for serverless deployment using a vercel.json file, demonstrating an early understanding of modern front-end hosting and API routing."
       ]
     }
   ],
   "skills": {
     "programmingLanguages": ["CSS3", "HTML5", "JavaScript", "Python", "TypeScript"],
-    "frameworksAndLibraries": ["Next.js", "React"],
-    "toolsAndPlatforms": ["Figma", "Google Cloud Platform (GCP)", "Responsive Web Design", "RESTful APIs"]
+    "frameworksAndLibraries": ["Bootstrap", "Express", "Next.js", "Node.js", "React", "Tailwind CSS"],
+    "toolsAndPlatforms": ["Figma", "GitHub", "Google Cloud Platform (GCP)", "RESTful APIs", "UI/UX Principles"]
   }
 }

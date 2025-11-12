@@ -31,7 +31,8 @@
       "endDate": "2025-03",
       "responsibilities": [
         "Redesigned website entirely on the Shopify platform, implementing a modern UI and custom JavaScript features that contributed to a 35% increase in online sales.",
-        "Drove a 40% increase in organic traffic within six months by executing a targeted SEO strategy, focusing on keyword optimization for product descriptions and creating high-ranking landing pages."
+        "Drove a 40% increase in organic traffic within six months by executing a targeted SEO strategy, focusing on keyword optimization for product descriptions and creating high-ranking landing pages.",
+        "Developed and integrated a custom JavaScript inquiry button on product pages, streamlining the customer communication process and improving lead capture for high-value items."
       ],
       "technologies": ["Shopify", "JavaScript", "SEO"],
       "achievements": [
@@ -53,37 +54,14 @@
         "35% increase in overall sales",
         "30% customer base expansion"
       ]
-    },
-    {
-      "title": "Web Developer",
-      "company": "Frenzr Social Media Agency",
-      "location": "Montreal, QC",
-      "startDate": "2023-05",
-      "endDate": "2023-08",
-      "responsibilities": [
-        "Overhauled the agency's website UI/UX on the Squarespace platform, integrating an automated calendar booking system that directly increased the volume of inbound client discovery calls by 50%."
-      ],
-      "technologies": ["Squarespace"],
-      "achievements": [
-        "50% increase in inbound client discovery calls"
-      ]
     }
   ],
   "education": [
-    {
-      "degree": "Bachelor Of Applied Science (BASc) In Computer Science",
-      "institution": "York University",
-      "location": "Toronto, ON",
-      "startDate": "2025-09",
-      "endDate": "2028-08",
-      "status": "In Progress"
-    },
     {
       "degree": "College Diploma In Computer Programming",
       "institution": "Seneca Polytechnic",
       "location": "Toronto, ON",
       "gpa": "3.6/4.0",
-      "startDate": "2024-05",
       "endDate": "2025-08",
       "status": "Completed"
     }
@@ -100,5 +78,10 @@
         "Ensured data persistence for itemized receipts by utilizing file I/O operations, allowing completed bills to be saved and reviewed in subsequent sessions."
       ]
     }
-  ]
+  ],
+  "skills": {
+    "toolsAndPlatforms": ["Agile Methodologies", "CI/CD", "Docker", "Git", "GitHub", "Google Cloud Platform (GCP)", "MongoDB", "PostgreSQL", "RESTful APIs", "SEO", "Shopify", "Supabase", "Vercel"],
+    "frameworksAndLibraries": ["Bootstrap", "Next.js", "Node.js", "React", "Tailwind CSS"],
+    "programmingLanguages": ["C++", "CSS3", "HTML5", "JavaScript", "Python", "SQL", "TypeScript"]
+  }
 }
