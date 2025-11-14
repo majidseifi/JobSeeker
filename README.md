@@ -7,7 +7,6 @@ Automates job searching on Indeed and LinkedIn using n8n. Scores jobs with AI, g
 ## Features
 
 - Scrapes jobs from Indeed and LinkedIn daily using 4 parallel searches (Software Developer + Web Developer on both platforms)
-- Filters out senior and backend positions automatically
 - Removes duplicates and jobs older than 7 days to save on API costs
 - AI scores jobs 0-10 based on resume fit, salary, remote work, and benefits
 - Recommends which resume version to use (supports 4 versions)
@@ -29,7 +28,7 @@ Schedule Trigger (Daily at 9 AM)
                                                               ↓
                                                        [MERGE 4 SOURCES]
                                                               ↓
-                                 Remove Duplicates (Senior, Backend, MERN)
+                                               Remove Duplicates
                                                               ↓
                                          Get All Existing Job URLs
                                                               ↓
@@ -92,7 +91,7 @@ See `SETUP_GUIDE.md` for detailed steps.
 
 **Search parameters** - Edit the 4 actor nodes to change location, keywords, or job type (2 Indeed + 2 LinkedIn)
 
-**Job filtering** - Edit the "Remove Duplicates in Current Batch" node to filter out unwanted job titles (currently filters: Senior, Backend, MERN)
+**Job filtering** - Edit the "Remove Duplicates in Current Batch" node to filter out unwanted job titles
 
 **Scoring criteria** - Modify the "Score and Reason" node:
 
@@ -114,7 +113,6 @@ All jobs saved with AI rating, recommended resume version, and personalized cove
 
 With 4 parallel searches (200 jobs/day total):
 
-- Automatically filters: Senior positions, Backend roles, MERN developers
 - Removes duplicates across all 4 sources
 - Filters jobs older than 7 days
 - ~100-150 unique jobs scored after filtering

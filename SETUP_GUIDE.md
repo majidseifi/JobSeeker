@@ -261,16 +261,10 @@ The workflow uses 4 parallel search nodes. Update each one with your preferences
 
 Edit the `Remove Duplicates in Current Batch` node to filter unwanted job titles:
 
-**Currently filters:**
-- Senior positions (includes "senior" or "sr.")
-- Backend positions
-- MERN developer positions
-
 **To customize:**
 1. Click on the node
-2. Find the filter conditions in the JavaScript code
-3. Add or remove filters based on your preferences
-4. Common filters: "principal", "staff", "lead", "manager", etc.
+2. Add filter conditions in the JavaScript code based on your preferences
+3. Common filters: "principal", "staff", "lead", "manager", etc.
 
 ### 4. Add Your Resume Data
 
