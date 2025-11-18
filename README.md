@@ -121,11 +121,11 @@ With 4 parallel searches (200 jobs/day total):
 
 ## Author
 
-**YOUR_FULL_NAME**
+**Majid Seifi Kashani**
 
-- Website: [yourdomain.com](https://yourdomain.com)
-- LinkedIn: [linkedin.com/in/your-profile](https://linkedin.com/in/your-profile)
-- Email: majid@yourdomain.com
+- Website: [seifi.dev](https://seifi.dev)
+- LinkedIn: [linkedin.com/in/majidseifi](https://linkedin.com/in/majidseifi)
+- Email: majid@seifi.dev
 
 ## Disclaimer
 

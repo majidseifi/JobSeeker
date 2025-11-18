@@ -6,7 +6,7 @@
         "rule": {
           "interval": [
             {
-              "triggerAtHour": 9
+              "triggerAtHour": 12
             }
           ]
         }
@@ -31,14 +31,14 @@
         "messages": {
           "values": [
             {
-              "content": "=You're an intelligent bot perfect at rating a job opening based on the candidate's resume. Please score the job out of 10 using the following weighted criteria:\n\nSCORING RUBRIC (out of 10 points total):\n\na) Resume Fit (0-4 points):\n- 0 points: No match or poor fit\n- 2 points: Mostly matching (some relevant skills/experience)\n- 4 points: Amazing fit (strong match with requirements)\n\nb) Salary (0-2 points):\n- 2 points: Over $60,000/year OR over $5,000/month OR over $30/hr\n- 0 points: Below thresholds or not specified\n\nc) Remote Position (0-2 points):\n- 2 points: Remote or hybrid position\n- 0 points: On-site only\n\nd) Benefits (0-1 point):\n- 1 point: Benefits offered (health, dental, vacation, etc.)\n- 0 points: No benefits mentioned\n\ne) Full-time (0-1 point):\n- 1 point: Full-time permanent position (not contract or part-time)\n- 0 points: Contract, part-time, or temporary\n\nIMPORTANT: Calculate each score separately and show your work in the reasoning.",
+              "content": "=You're an intelligent bot perfect at rating a job opening based on the candidate's resume. Please score the job out of 10 using the following weighted criteria:\n\nSCORING RUBRIC (out of 10 points total):\n\na) Resume Fit (0-4 points):\n- 0 points: No match or poor fit\n- 2 points: Mostly matching (some relevant skills/experience)\n- 4 points: Amazing fit (strong match with requirements)\n\nb) Salary (0-2 points):\n- 2 points: Over $60,000/year OR over $5,000/month OR over $30/hr\n- 0 points: Below thresholds or not specified\n\nc) Remote Position (0-2 points):\n- 2 points: Remote or hybrid position\n- 0 points: On-site only\n\nd) Benefits (0-1 point):\n- 1 point: Benefits offered (health, dental, vacation, etc.)\n- 0 points: No benefits mentioned\n\ne) Full-time (0-1 point):\n- 1 point: Full-time permanent position (not contract or part-time)\n- 0 points: Contract, part-time, or temporary\n\nIMPORTANT: Calculate each score separately carefully.",
               "role": "model"
             },
             {
-              "content": "=Here's the job listing details:\nSalary: {{ $json.salary.salaryText || \"Not specified (check description)\"}}\nRemote: {{ $json.isRemote }}\nBenefits: {{ $json.benefits }}\nJob type/term: {{ $json.jobType[0] || \"Not specified (check description)\"}} (i.e. part time, full time, contract etc)\nJob Description:\n{{ $json.descriptionText }}\n\nThe candidate has 4 different resume versions. Please analyze which version best matches this job and recommend it.\n\n=== RESUME VERSION 1 ===\nFocus: Comprehensive software developer profile with C++ project and business development experience\nTitle: Software Developer\nKey Highlights:\n- C++ Object-Oriented Programming project (Restaurant Management System)\n- Business Development Executive role (2021-2023) showing business acumen and client relations\n- Full technology stack including C++, JavaScript, React, Python, SQL\n- Recent graduate emphasis with 3.6 GPA\n- Comprehensive skills: Docker, CI/CD, MongoDB, PostgreSQL, Supabase\n- 3 work experiences: Sowcial, Galerie Maya (Ecommerce + Business Dev)\nBest for: Backend roles, full-stack positions, junior software developer roles, positions valuing business understanding, roles requiring C++ or OOP\n\n=== RESUME VERSION 2 ===\nFocus: Software developer with dual project showcase (hackathon + academic)\nTitle: Software Developer\nKey Highlights:\n- Hackathon Finalist project (Agri-Tourism Marketplace with Node.js/Express backend)\n- C++ Object-Oriented Programming project (Restaurant Management System)\n- Shows both rapid prototyping AND structured development\n- Recent graduate emphasis with 3.6 GPA\n- Streamlined tech stack (removed Docker, CI/CD, SQL, heavy tools)\n- 2 work experiences only: Sowcial, Galerie Maya Ecommerce (NO Business Development role)\nBest for: Startup environments, roles valuing rapid development and prototyping, positions requiring versatility, hackathon-friendly companies, junior full-stack roles\n\n=== RESUME VERSION 3 ===\nFocus: Experienced web developer with e-commerce expertise\nTitle: Web Developer (NOT Software Developer)\nKey Highlights:\n- \"3+ years of experience\" positioning (de-emphasizes recent graduate status)\n- Results-driven professional summary focused on business impact\n- Business Development Executive role included (shows client-facing experience)\n- Frenzr web developer role added (4 work experiences total)\n- Hackathon project only (NO C++ project - pure web focus)\n- Streamlined skills: removed C++, SQL, Docker, databases\nBest for: Mid-level web developer roles, e-commerce companies, agencies, positions requiring proven experience, roles not suitable for \"recent graduate\" candidates\n\n=== RESUME VERSION 4 ===\nFocus: Front-end developer specializing in UI/UX and user experience\nTitle: Front-end Developer\nKey Highlights:\n- \"Front-end Developer\" title (specialized, not generalist)\n- \"3+ years of experience\" emphasis (NOT recent graduate)\n- Enhanced Galerie Maya achievements with Google Analytics and 35% conversion rate increase\n- Detailed Frenzr responsibilities (custom CSS, multiple pages launched)\n- Hackathon project only (NO C++ - pure web focus)\n- Front-end focused skills: Figma, UI/UX Principles, Responsive Design\n- 3 work experiences: Sowcial, Galerie Maya Ecommerce, Frenzr (NO Business Development role)\nBest for: Front-end specific roles, UI/UX positions, design-focused development roles, React/Next.js jobs, roles requiring analytics experience, TypeScript positions\n\nKEY DIFFERENCES SUMMARY:\n- V1: Junior full-stack with C++/OOP + business background (3 roles)\n- V2: Junior full-stack with hackathon + C++, no business role (2 roles)\n- V3: Mid-level web developer with experience emphasis + business background (4 roles)\n- V4: Mid-level front-end specialist with UI/UX + analytics focus (3 roles)\n\nIMPORTANT: Based on the job description, requirements, and title, recommend which resume version (1, 2, 3, or 4) would be the best fit."
+              "content": "=Here's the job listing details:\nSalary: {{ $json.salary.salaryText || \"Not specified (check description)\"}}\nRemote: {{ $json.isRemote }}\nBenefits: {{ $json.benefits }}\nJob type/term: {{ $json.jobType[0] || \"Not specified (check description)\"}} (i.e. part time, full time, contract etc)\nJob Description:\n{{ $json.descriptionText }}\n\nThe candidate has 4 different resume versions. Please analyze which version best matches this job and recommend it.\n\n=== RESUME VERSION 1 ===\nFocus: Comprehensive software developer profile with C++ project and business development experience\nTitle: Software Developer\nKey Highlights:\n- C++ Object-Oriented Programming project (Restaurant Management System)\n- Business Development Executive role (2021-2023) showing business acumen and client relations\n- Full technology stack including C++, JavaScript, React, Python, SQL\n- Recent graduate emphasis with 3.6 GPA\n- Comprehensive skills: Docker, CI/CD, MongoDB, PostgreSQL, Supabase\n- 3 work experiences: Sowcial, Galerie Maya (Ecommerce + Business Dev)\nBest for: Backend roles, full-stack positions, junior software developer roles, positions valuing business understanding, roles requiring C++ or OOP\n\n=== RESUME VERSION 2 ===\nFocus: Full-stack developer with proven production experience and business acumen\nTitle: Full-Stack Developer\nKey Highlights:\n- 5+ years of experience building production-grade applications\n- 95% infrastructure cost reduction through intelligent backup systems and GCP optimization\n- 80% API performance optimization through multi-layered caching (localStorage, TTL, cross-tab sync)\n- Full-stack tech stack: Next.js 15, TypeScript, FastAPI, PostgreSQL, GCP Cloud Run\n- Business Development Executive role (2021-2023) showing business acumen\n- 3 work experiences: Sowcial (Full Stack), Galerie Maya (Ecommerce + Business Dev)\n- Hackathon Finalist project converted to production application\nBest for: Full-stack positions, senior/mid-level roles, startups valuing cost optimization, positions requiring both technical depth and business understanding, backend-heavy\nfull-stack roles, cloud/infrastructure roles, roles requiring proven production experience\n\n=== RESUME VERSION 3 ===\nFocus: Experienced web developer with e-commerce expertise\nTitle: Web Developer (NOT Software Developer)\nKey Highlights:\n- \"3+ years of experience\" positioning (de-emphasizes recent graduate status)\n- Results-driven professional summary focused on business impact\n- Business Development Executive role included (shows client-facing experience)\n- Frenzr web developer role added (4 work experiences total)\n- Hackathon project only (NO C++ project - pure web focus)\n- Streamlined skills: removed C++, SQL, Docker, databases\nBest for: Mid-level web developer roles, e-commerce companies, agencies, positions requiring proven experience, roles not suitable for \"recent graduate\" candidates\n\n=== RESUME VERSION 4 ===\nFocus: Front-end developer specializing in UI/UX and user experience\nTitle: Front-end Developer\nKey Highlights:\n- \"Front-end Developer\" title (specialized, not generalist)\n- \"3+ years of experience\" emphasis (NOT recent graduate)\n- Enhanced Galerie Maya achievements with Google Analytics and 35% conversion rate increase\n- Detailed Frenzr responsibilities (custom CSS, multiple pages launched)\n- Hackathon project only (NO C++ - pure web focus)\n- Front-end focused skills: Figma, UI/UX Principles, Responsive Design\n- 3 work experiences: Sowcial, Galerie Maya Ecommerce, Frenzr (NO Business Development role)\nBest for: Front-end specific roles, UI/UX positions, design-focused development roles, React/Next.js jobs, roles requiring analytics experience, TypeScript positions\n\nKEY DIFFERENCES SUMMARY:\n- V1: Junior full-stack with C++/OOP + business background (3 roles)\n- V2: Mid/Senior full-stack with 95% cost reduction + 80% API optimization + business background (3 roles)\n- V3: Mid-level web developer with experience emphasis + business background (4 roles)\n- V4: Mid-level front-end specialist with UI/UX + analytics focus (3 roles)\n\nIMPORTANT: Based on the job description, requirements, and title, recommend which resume version (1, 2, 3, or 4) would be the best fit."
             },
             {
-              "content": "==Please return JSON data structured the following way:\n  {\n    \"score\": {\n      \"match\": 0,\n      \"salary\": 0,\n      \"remote\": 0,\n      \"benefits\": 0,\n      \"fulltime\": 0,\n      \"total\": 0\n    },\n    \"recommendedResumeVersion\": 0,\n    \"reasoning\": \"Explain both the score briefly and why you recommended this specific resume version\"\n  }\n\nCRITICAL FORMATTING RULES:\n1. Return ONLY valid JSON - no markdown, no code blocks, no extra text\n2. The \"reasoning\" field must be a single-line string with no line breaks\n3. Use escaped quotes (\\\") inside the reasoning text if needed\n4. Do NOT add any text after the closing }\n5. Ensure all strings are properly terminated with quotes",
+              "content": "=  ==Please return ONLY this JSON structure with no extra text:\n  {\n    \"score\": {\n      \"match\": 0,\n      \"salary\": 0,\n      \"remote\": 0,\n      \"benefits\": 0,\n      \"fulltime\": 0,\n      \"total\": 0\n    },\n    \"recommendedResumeVersion\": 0\n  }\n\nCRITICAL FORMATTING RULES:\n1. Return ONLY valid JSON - no markdown, no code blocks, no extra text\n2. Do NOT add any text after the closing }\n3. Ensure all strings are properly terminated with quotes",
               "role": "model"
             }
           ]
@@ -50,7 +50,7 @@
       "typeVersion": 1,
       "position": [
         2016,
-        272
+        192
       ],
       "id": "bad76430-8aa4-4ec7-aa1e-d76948d2b500",
       "name": "Score and Reason",
@@ -74,11 +74,11 @@
         "messages": {
           "values": [
             {
-              "content": "=You are a senior career consultant specializing in tech industry cover letters. Create a compelling, personalized cover letter following these guidelines:\n\nOPENING PARAGRAPH (2-3 sentences):\n- Lead with your strongest relevant qualification or a compelling hook\n- Mention the specific role and company\n- Briefly state why you're interested (be specific, not generic)\n\nEXAMPLE: \"When I redesigned Galerie Maya's e-commerce platform and drove a 35% increase in conversions, I discovered my passion for building user-centric web experiences. This\nhands-on approach to solving real business problems through code aligns perfectly with [Company]'s mission to [specific company goal from job description].\"\n\nBODY PARAGRAPHS (2 paragraphs):\n\nParagraph 1 - Technical Fit:\n- Highlight 2-3 technical skills/experiences that directly match job requirements\n- Use specific examples with measurable results\n- Connect your experience to their needs\n\nParagraph 2 - Value Proposition:\n- Showcase a relevant project or achievement\n- Demonstrate problem-solving ability\n- Show how you'll add value to their team\n\nCLOSING PARAGRAPH (2-3 sentences):\n- Express genuine enthusiasm for the role/company\n- Include a confident call to action\n- Keep it concise and forward-looking\n\nSTYLE GUIDELINES:\n✓ Use active voice and strong action verbs\n✓ Be specific with numbers, technologies, and outcomes\n✓ Show, don't tell (use examples, not adjectives)\n✓ Match the company's tone (formal for enterprise, casual for startups)\n✓ Keep it under 350 words\n✗ No generic openings like \"I am writing to apply for...\"\n✗ No desperation or underselling yourself\n✗ No listing skills without context\n✗ No repeating your resume",
+              "content": "=You are a senior career consultant specializing in tech industry cover letters. Create a compelling, personalized cover letter that tells a story and demonstrates concrete impact.\n\nOPENING PARAGRAPH (2-3 sentences):\n- Lead with a compelling achievement or story that hooks the reader\n- Connect it directly to the role and company\n- Show genuine interest (be specific, not generic)\n\nEXAMPLES OF STRONG OPENINGS:\n- \"When I reduced Sowcial's infrastructure costs by 95% while maintaining zero data loss, I discovered my passion for pragmatic engineering that solves real business problems. This\napproach aligns perfectly with [Company]'s focus on [specific company goal].\"\n- \"When I redesigned Galerie Maya's e-commerce platform and drove a 35% increase in conversions, I discovered my passion for building user-centric experiences that drive business\nresults. This hands-on approach to solving real problems through code aligns perfectly with [Company]'s mission to [specific goal].\"\n- \"Optimizing API performance by 80% through intelligent multi-layered caching taught me that great engineering isn't about using the latest tech—it's about understanding constraints\n and building pragmatic solutions. I'm excited to bring this mindset to [Company]'s [specific role].\"\n\nBODY PARAGRAPHS (2 paragraphs):\n\nParagraph 1 - Technical Achievement & Skills Fit:\n- Highlight 2-3 technical achievements with measurable results that match job requirements\n- Use specific metrics and technologies\n- Connect experience directly to their needs\n- Draw from: 95% cost reduction, 80% API optimization, authentication migration, caching systems, deployment pipelines, full-stack development\n\nEXAMPLES:\n- \"I implemented a multi-layered caching system that reduced API load by 80%, using localStorage with TTL management and cross-tab synchronization\"\n- \"I architected and developed a production-ready marketplace using Next.js 15, TypeScript, FastAPI, and PostgreSQL, converting a hackathon concept into a scalable full-stack\napplication\"\n- \"I reduced infrastructure costs by 95% through intelligent backup systems with change detection algorithms while achieving zero data loss\"\n\nParagraph 2 - Business Impact OR Problem-Solving:\n- Showcase cross-functional collaboration, business understanding, or complex technical problem-solving\n- Demonstrate impact beyond just code\n- Show business acumen and communication skills\n\nEXAMPLES:\n- \"My experience co-founding an e-commerce company taught me that code isn't just about solving technical problems—it's about driving real business value. This perspective helped me\ntranslate business constraints into technical solutions that balanced cost, performance, and scalability.\"\n- \"I drove a 35% increase in online sales and 40% boost in organic traffic at Galerie Maya by combining technical implementation with data-driven decision making using Google\nAnalytics\"\n\nCLOSING PARAGRAPH (2-3 sentences):\n- Express genuine enthusiasm for the role/company\n- Reference specific company initiatives or values\n- Confident call to action\n\nSTYLE GUIDELINES:\n✓ Tell stories with concrete metrics (95% cost reduction, 80% API optimization, 35% sales increase)\n✓ Use active voice and strong action verbs (Architected, Optimized, Reduced, Implemented, Drove)\n✓ Show business + technical understanding (unique differentiator)\n✓ Be specific with technologies and outcomes\n✓ Match company tone (formal for enterprise, energetic for startups)\n✓ Keep it under 350 words\n✗ No generic openings like \"I am writing to apply for...\"\n✗ No desperation or underselling\n✗ No listing skills without context\n✗ No repeating the resume",
               "role": "model"
             },
             {
-              "content": "=Here's the job listing details:\nTitle: {{ $('JSONify score and reasoning').item.json.title }}\nCompany: {{ $('JSONify score and reasoning').item.json.companyName }}\nLocation: {{ $('JSONify score and reasoning').item.json.location }}\nSalary: {{ $('JSONify score and reasoning').item.json.salary }}\nRemote: {{ $('JSONify score and reasoning').item.json.isRemote }}\n\nHere is the candidate's COMPLETE resume (Version {{ $('JSONify score and reasoning').item.json.recommendedResumeVersion }} - recommended as best match):\n\n{{ JSON.stringify($('JSONify score and reasoning').item.json.candidateResume, null, 2) }}\n\nIMPORTANT: This is Resume Version {{ $('JSONify score and reasoning').item.json.recommendedResumeVersion }}.\n\nCover letter writing guidelines based on version:\n- Version 1/2: Emphasize full-stack capabilities, business acumen, and recent graduate energy\n- Version 3: Emphasize 3+ years of proven results and e-commerce expertise\n- Version 4: Emphasize front-end specialization, UI/UX expertise, and design focus\n\nTailor the cover letter to highlight the unique strengths of this particular resume version.\n"
+              "content": "=Here's the job listing details:\nTitle: {{ $('JSONify score and reasoning').item.json.title }}\nCompany: {{ $('JSONify score and reasoning').item.json.companyName }}\nLocation: {{ $('JSONify score and reasoning').item.json.location }}\nSalary: {{ $('JSONify score and reasoning').item.json.salary }}\nRemote: {{ $('JSONify score and reasoning').item.json.isRemote }}\n\nHere is the candidate's COMPLETE resume (Version {{ $('JSONify score and reasoning').item.json.recommendedResumeVersion }} - recommended as best match):\n\n{{ JSON.stringify($('JSONify score and reasoning').item.json.candidateResume, null, 2) }}\n\nIMPORTANT: This is Resume Version {{ $('JSONify score and reasoning').item.json.recommendedResumeVersion }}.\n\nCover letter writing guidelines based on version:\n- Version 1: Emphasize junior full-stack capabilities, C++/OOP skills, business acumen, and recent graduate energy\n- Version 2: Emphasize senior full-stack experience, 95% cost reduction, 80% API optimization, production-grade systems, business acumen, and pragmatic engineering\n- Version 3: Emphasize 3+ years of proven web development results and e-commerce expertise\n- Version 4: Emphasize front-end specialization, UI/UX expertise, and design focus\n\nTailor the cover letter to highlight the unique strengths of this particular resume version.\n"
             },
             {
               "content": "=Write a cover letter that makes the hiring manager want to interview this candidate. Focus on specific achievements and technologies that match the job requirements. Make it\nconversational yet professional.\n\nIMPORTANT: Return ONLY a valid JSON object with no markdown formatting, no code blocks, no extra text:\n{\n  \"cover_letter\": \"Your complete cover letter here. Use \\\\n\\\\n for paragraph breaks between opening, body paragraphs, and closing.\"\n}",
@@ -124,17 +124,17 @@
         "operation": "appendOrUpdate",
         "documentId": {
           "__rl": true,
-          "value": "1Z7z6kOCXcXLnckqrzJrQrbl1JpnaOt4NAbpjwleIAa0",
+          "value": "YOUR_GOOGLE_SHEETS_DOCUMENT_ID",
           "mode": "list",
           "cachedResultName": "Job Listings Database",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Z7z6kOCXcXLnckqrzJrQrbl1JpnaOt4NAbpjwleIAa0/edit?usp=drivesdk"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEETS_DOCUMENT_ID/edit?usp=drivesdk"
         },
         "sheetName": {
           "__rl": true,
           "value": "gid=0",
           "mode": "list",
-          "cachedResultName": "Sheet1",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Z7z6kOCXcXLnckqrzJrQrbl1JpnaOt4NAbpjwleIAa0/edit#gid=0"
+          "cachedResultName": "Jobs",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEETS_DOCUMENT_ID/edit#gid=0"
         },
         "columns": {
           "mappingMode": "defineBelow",
@@ -288,6 +288,16 @@
               "type": "string",
               "canBeUsedToMatch": true,
               "removed": false
+            },
+            {
+              "id": "Applied Date",
+              "displayName": "Applied Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
             }
           ],
           "attemptToConvertTypes": false,
@@ -313,13 +323,13 @@
     {
       "parameters": {
         "mode": "runOnceForEachItem",
-        "jsCode": "// Extract the JSON string from Gemini's response\nlet geminiText = $input.item.json.content.parts[0].text;\n\nconsole.log('=== GEMINI FULL RESPONSE ===');\nconsole.log(geminiText);\nconsole.log('=== END RESPONSE ===');\n\n// Remove markdown code block wrappers if present\ngeminiText = geminiText.trim();\nif (geminiText.startsWith('```')) {\n  geminiText = geminiText.replace(/^```(?:json)?\\\\s*\\\\n?/, '');\n  geminiText = geminiText.replace(/\\\\n?```\\\\s*$/, '');\n  geminiText = geminiText.trim();\n}\n\n// Function to attempt parsing with progressive fixes\nfunction parseGeminiJSON(text) {\n  const fixes = [\n    // Try 1: Original text\n    { name: 'Original', fix: (t) => t },\n\n    // Try 2: Fix the specific \"Web Developer).\" + newline + \"Developer)\" pattern\n    { name: 'Fix duplicate Developer pattern', fix: (t) => {\n      // This regex finds patterns like: (V3 Web Developer).\"\\nDeveloper). Version...\n      // and removes everything after the first .\"\\n\n      return t.replace(/(\\(V\\d Web Developer\\)\\.\"\\n)Developer\\)[^\\}]*(\\})/g, '$1$2');\n    }},\n\n    // Try 3: Remove any text after last complete reasoning quote + closing brace\n    { name: 'Clean trailing text', fix: (t) => {\n      // Find the last occurrence of \"}\\n}\" or similar patterns and cut there\n      const match = t.match(/(.*\"reasoning\":\\s*\"[^\"]*(?:\\\\\"[^\"]*)*\")\\s*\\n[^\\}]*(\\})/s);\n      if (match) {\n        return match[1] + '\\n' + match[2];\n      }\n      return t;\n    }},\n\n    // Try 4: Find last proper closing brace\n    { name: 'Extract to last brace', fix: (t) => {\n      const lastBrace = t.lastIndexOf('}');\n      if (lastBrace > 0) {\n        return t.substring(0, lastBrace + 1);\n      }\n      return t;\n    }},\n\n    // Try 5: Manually reconstruct JSON by extracting fields\n    { name: 'Reconstruct JSON', fix: (t) => {\n      try {\n        // Extract score object\n        const scoreMatch = t.match(/\"score\":\\s*(\\{[^}]+\\})/);\n        // Extract recommendedResumeVersion\n        const versionMatch = t.match(/\"recommendedResumeVersion\":\\s*(\\d+)/);\n        // Extract reasoning (up to first .\" followed by newline)\n        const reasoningMatch = t.match(/\"reasoning\":\\s*\"((?:[^\"\\\\\\\\]|\\\\\\\\.)*)\"/);\n\n        if (scoreMatch && versionMatch && reasoningMatch) {\n          return JSON.stringify({\n            score: JSON.parse(scoreMatch[1]),\n            recommendedResumeVersion: parseInt(versionMatch[1]),\n            reasoning: reasoningMatch[1].replace(/\\\\n/g, ' ').replace(/\\\\\"/g, '\"')\n          });\n        }\n      } catch (e) {\n        console.log('Reconstruction failed:', e.message);\n      }\n      return t;\n    }}\n  ];\n\n  for (let i = 0; i < fixes.length; i++) {\n    try {\n      console.log(`Attempting fix: ${fixes[i].name}`);\n      const fixed = fixes[i].fix(text);\n\n      if (i > 0 && fixed !== text) {\n        console.log(`Applied fix, first 200 chars: ${fixed.substring(0, 200)}...`);\n      }\n\n      const parsed = JSON.parse(fixed);\n      console.log(`✓ Successfully parsed with: ${fixes[i].name}`);\n      return parsed;\n    } catch (e) {\n      console.log(`✗ Failed with ${fixes[i].name}: ${e.message}`);\n\n      if (i === fixes.length - 1) {\n        throw new Error(\n          `All ${fixes.length} JSON parsing attempts failed.\\\\n\\\\n` +\n          `Last error: ${e.message}\\\\n\\\\n` +\n          `Problematic section (around position 2841):\\\\n${text.substring(2800, 2900)}`\n        );\n      }\n    }\n  }\n}\n\n// Parse with auto-fixing\nconst parsed = parseGeminiJSON(geminiText);\n\n// Validate parsed object\nif (!parsed.score || !parsed.recommendedResumeVersion || !parsed.reasoning) {\n  throw new Error(`Invalid JSON structure. Missing fields.`);\n}\n\n// Get job data\nconst jobData = $('Loop Over dataset items').item.json;\nconst version = parsed.recommendedResumeVersion || 1;\n// Version-specific resume configurations (updated to match actual JSON files)\nconst resumeVersions = {\n  1: {\n    \"personalInfo\": {\n      \"name\": \"YOUR_FULL_NAME\",\n      \"location\": \"YOUR_CITY, YOUR_STATE\",\n      \"phone\": \"YOUR_PHONE_NUMBER\",\n      \"email\": \"your.email@example.com\",\n      \"linkedin\": \"linkedin.com/in/your-profile\",\n      \"website\": \"your-website.com\",\n      \"title\": \"Software Developer\"\n    },\n    \"professionalSummary\": \"With a background in building and managing e-commerce platforms, I pivoted to software development to solve complex problems with code. As a recent Computer Programming graduate (3.6 GPA) with a strong foundation in JavaScript, React, C++, and Python, I apply my business acumen and technical skills to build robust and scalable software.\",\n    \"workExperience\": [\n      {\n        \"title\": \"Web Developer\",\n        \"company\": \"Sowcial\",\n        \"location\": \"Toronto, ON\",\n        \"startDate\": \"2025-03\",\n        \"endDate\": \"2025-10\",\n        \"responsibilities\": [\n          \"Developed a production-ready marketplace using Next.js 15, TypeScript, and Tailwind CSS, converting a Hackathon concept into a scalable web application.\",\n          \"Implemented a comprehensive error handling system with custom reusable components, improving user experience by providing context-aware feedback for all HTTP status codes.\",\n          \"Established a three-tier deployment pipeline on Google Cloud Platform, automating builds and enhancing security by integrating Google Secret Manager to eliminate hardcoded tokens.\"\n        ],\n        \"technologies\": [\"Next.js 15\", \"TypeScript\", \"Tailwind CSS\", \"Google Cloud Platform\", \"Google Secret Manager\"]\n      },\n      {\n        \"title\": \"Ecommerce Specialist\",\n        \"company\": \"Galerie Maya\",\n        \"location\": \"Toronto, ON\",\n        \"startDate\": \"2023-10\",\n        \"endDate\": \"2025-03\",\n        \"responsibilities\": [\n          \"Redesigned website entirely on the Shopify platform, implementing a modern UI and custom JavaScript features that contributed to a 35% increase in online sales.\",\n          \"Drove a 40% increase in organic traffic within six months by executing a targeted SEO strategy, focusing on keyword optimization for product descriptions and creating high-ranking landing pages.\",\n          \"Developed and integrated a custom JavaScript inquiry button on product pages, streamlining the customer communication process and improving lead capture for high-value items.\"\n        ],\n        \"technologies\": [\"Shopify\", \"JavaScript\", \"SEO\"],\n        \"achievements\": [\n          \"35% increase in online sales\",\n          \"40% increase in organic traffic\"\n        ]\n      },\n      {\n        \"title\": \"Business Development Executive\",\n        \"company\": \"Galerie Maya\",\n        \"location\": \"Toronto, ON\",\n        \"startDate\": \"2021-02\",\n        \"endDate\": \"2023-10\",\n        \"responsibilities\": [\n          \"Executed a multichannel digital marketing strategy, utilizing Facebook ads and marketplace positioning to drive a 35% increase in overall sales.\",\n          \"Expanded the customer base by 30% by securing sponsorships and representation at high-end events, significantly boosting brand awareness and market penetration.\"\n        ],\n        \"achievements\": [\n          \"35% increase in overall sales\",\n          \"30% customer base expansion\"\n        ]\n      }\n    ],\n    \"education\": [\n      {\n        \"degree\": \"College Diploma In Computer Programming\",\n        \"institution\": \"Seneca Polytechnic\",\n        \"location\": \"Toronto, ON\",\n        \"gpa\": \"3.6/4.0\",\n        \"endDate\": \"2025-08\",\n        \"status\": \"Completed\"\n      }\n    ],\n    \"projects\": [\n      {\n        \"name\": \"Restaurant Order Management System\",\n        \"date\": \"2024-09 to 2024-12\",\n        \"context\": \"Object Oriented C++ Project\",\n        \"techStack\": [\"C++\", \"Git\", \"GitHub\"],\n        \"description\": [\n          \"Developed a console-based restaurant management application in C++, applying object-oriented principles like inheritance and polymorphism to model menu items and handle billing.\",\n          \"Implemented a dynamic menu system capable of parsing and loading food and drink items from external .csv files, allowing for easy updates without recompiling.\",\n          \"Ensured data persistence for itemized receipts by utilizing file I/O operations, allowing completed bills to be saved and reviewed in subsequent sessions.\"\n        ]\n      }\n    ],\n    \"skills\": {\n      \"toolsAndPlatforms\": [\"Agile Methodologies\", \"CI/CD\", \"Docker\", \"Git\", \"GitHub\", \"Google Cloud Platform (GCP)\", \"MongoDB\", \"PostgreSQL\", \"RESTful APIs\", \"SEO\", \"Shopify\",\n\"Supabase\", \"Vercel\"],\n      \"frameworksAndLibraries\": [\"Bootstrap\", \"Next.js\", \"Node.js\", \"React\", \"Tailwind CSS\"],\n      \"programmingLanguages\": [\"C++\", \"CSS3\", \"HTML5\", \"JavaScript\", \"Python\", \"SQL\", \"TypeScript\"]\n    }\n  },\n  2: {\n    \"personalInfo\": {\n      \"name\": \"YOUR_FULL_NAME\",\n      \"location\": \"YOUR_CITY, YOUR_STATE\",\n      \"phone\": \"YOUR_PHONE_NUMBER\",\n      \"email\": \"your.email@example.com\",\n      \"linkedin\": \"linkedin.com/in/your-profile\",\n      \"website\": \"your-website.com\",\n      \"title\": \"Software Developer\"\n    },\n    \"professionalSummary\": \"With a background in building and managing e-commerce platforms, I pivoted to software development to solve complex problems with code. As a recent Computer Programming graduate (3.6 GPA) with a strong foundation in JavaScript, React, C++, and Python, I apply my business acumen and technical skills to build robust and scalable software.\",\n    \"workExperience\": [\n      {\n        \"title\": \"Web Developer\",\n        \"company\": \"Sowcial\",\n        \"location\": \"Toronto, ON\",\n        \"startDate\": \"2025-03\",\n        \"endDate\": \"2025-10\",\n        \"responsibilities\": [\n          \"Developed a production-ready marketplace using Next.js 15, TypeScript, and Tailwind CSS, converting a Hackathon concept into a scalable web application.\",\n          \"Implemented a comprehensive error handling system with custom reusable components, improving user experience by providing context-aware feedback for all HTTP status codes.\"\n        ],\n        \"technologies\": [\"Next.js 15\", \"TypeScript\", \"Tailwind CSS\"]\n      },\n      {\n        \"title\": \"Ecommerce Specialist\",\n        \"company\": \"Galerie Maya\",\n        \"location\": \"Toronto, ON\",\n        \"startDate\": \"2023-10\",\n        \"endDate\": \"2025-03\",\n        \"responsibilities\": [\n          \"Redesigned website entirely on the Shopify platform, implementing a modern UI and custom JavaScript features that contributed to a 35% increase in online sales.\",\n          \"Drove a 40% increase in organic traffic within six months by executing a targeted SEO strategy, focusing on keyword optimization for product descriptions and creating high-ranking landing pages.\"\n        ],\n        \"technologies\": [\"Shopify\", \"JavaScript\", \"SEO\"],\n        \"achievements\": [\n          \"35% increase in online sales\",\n          \"40% increase in organic traffic\"\n        ]\n      }\n    ],\n    \"education\": [\n      {\n        \"degree\": \"College Diploma In Computer Programming\",\n        \"institution\": \"Seneca Polytechnic\",\n        \"location\": \"Toronto, ON\",\n        \"gpa\": \"3.6/4.0\",\n        \"endDate\": \"2025-08\",\n        \"status\": \"Completed\"\n      }\n    ],\n    \"projects\": [\n      {\n        \"name\": \"Agri-Tourism Marketplace\",\n        \"date\": \"2025-03\",\n        \"context\": \"Seneca Hackathon 2025 - Finalist\",\n        \"techStack\": [\"HTML\", \"CSS\", \"JavaScript\", \"Node.js\", \"Express\", \"Vercel\"],\n        \"description\": [\n          \"Developed the initial prototype for an agritourism platform during an 8-hour hackathon, focusing on core user flows for browsing and viewing tour details.\",\n          \"Built a mock back-end using Node.js and Express to serve JSON data from local files, simulating a live API for the front-end to consume.\",\n          \"Configured the project for serverless deployment using a vercel.json file, demonstrating an early understanding of modern front-end hosting and API routing.\"\n        ]\n      },\n      {\n        \"name\": \"Restaurant Order Management System\",\n        \"date\": \"2024-09 to 2024-12\",\n        \"context\": \"Object Oriented C++ Project\",\n        \"techStack\": [\"C++\", \"Git\", \"GitHub\"],\n        \"description\": [\n          \"Developed a console-based restaurant management application in C++, applying object-oriented principles like inheritance and polymorphism to model menu items and handle billing.\",\n          \"Implemented a dynamic menu system capable of parsing and loading food and drink items from external .csv files, allowing for easy updates without recompiling.\",\n          \"Ensured data persistence for itemized receipts by utilizing file I/O operations, allowing completed bills to be saved and reviewed in subsequent sessions.\"\n        ]\n      }\n    ],\n    \"skills\": {\n      \"toolsAndPlatforms\": [\"Git\", \"GitHub\", \"Google Cloud Platform (GCP)\", \"MongoDB\", \"PostgreSQL\", \"SEO\", \"Vercel\"],\n      \"frameworksAndLibraries\": [\"Express\", \"Next.js\", \"Node.js\", \"React\", \"Tailwind CSS\"],\n      \"programmingLanguages\": [\"C++\", \"CSS3\", \"HTML5\", \"JavaScript\", \"Python\", \"TypeScript\"]\n    }\n  },\n  3: {\n    \"personalInfo\": {\n      \"name\": \"YOUR_FULL_NAME\",\n      \"location\": \"YOUR_CITY, YOUR_STATE\",\n      \"phone\": \"YOUR_PHONE_NUMBER\",\n      \"email\": \"your.email@example.com\",\n      \"linkedin\": \"linkedin.com/in/your-profile\",\n      \"website\": \"your-website.com\",\n      \"title\": \"Web Developer\"\n    },\n    \"professionalSummary\": \"With 3+ years of experience building solutions for e-commerce, I create web applications that drive real business results. Proficient in HTML, CSS, JavaScript and React, I recently re-architected a company's web presence, leading to a 35% increase in online sales and a 40% boost in organic traffic through targeted development and SEO.\",\n    \"workExperience\": [\n      {\n        \"title\": \"Web Developer\",\n        \"company\": \"Sowcial\",\n        \"location\": \"Toronto, ON\",\n        \"startDate\": \"2025-03\",\n        \"endDate\": \"2025-10\",\n        \"responsibilities\": [\n          \"Developed a production-ready marketplace using Next.js 15, TypeScript, and Tailwind CSS, converting a Hackathon concept into a scalable web application.\",\n          \"Implemented a comprehensive error handling system with custom reusable components, improving user experience by providing context-aware feedback for all HTTP status codes.\",\n          \"Established a three-tier deployment pipeline on Google Cloud Platform, automating builds and enhancing security by integrating Google Secret Manager to eliminate hardcoded tokens.\"\n        ],\n        \"technologies\": [\"Next.js 15\", \"TypeScript\", \"Tailwind CSS\", \"Google Cloud Platform\", \"Google Secret Manager\"]\n      },\n      {\n        \"title\": \"Ecommerce Specialist\",\n        \"company\": \"Galerie Maya\",\n        \"location\": \"Toronto, ON\",\n        \"startDate\": \"2023-10\",\n        \"endDate\": \"2025-03\",\n        \"responsibilities\": [\n          \"Redesigned website entirely on the Shopify platform, implementing a modern UI and custom JavaScript features that contributed to a 35% increase in online sales.\",\n          \"Drove a 40% increase in organic traffic within six months by executing a targeted SEO strategy, focusing on keyword optimization for product descriptions and creating high-ranking landing pages.\"\n        ],\n        \"technologies\": [\"Shopify\", \"JavaScript\", \"SEO\"],\n        \"achievements\": [\n          \"35% increase in online sales\",\n          \"40% increase in organic traffic\"\n        ]\n      },\n      {\n        \"title\": \"Business Development Executive\",\n        \"company\": \"Galerie Maya\",\n        \"location\": \"Toronto, ON\",\n        \"startDate\": \"2021-02\",\n        \"endDate\": \"2023-10\",\n        \"responsibilities\": [\n          \"Executed a multichannel digital marketing strategy, utilizing Facebook ads and marketplace positioning to drive a 35% increase in overall sales.\",\n          \"Expanded the customer base by 30% by securing sponsorships and representation at high-end events, significantly boosting brand awareness and market penetration.\"\n        ],\n        \"achievements\": [\n          \"35% increase in overall sales\",\n          \"30% customer base expansion\"\n        ]\n      },\n      {\n        \"title\": \"Web Developer\",\n        \"company\": \"Frenzr Social Media Agency\",\n        \"location\": \"Montreal, QC\",\n        \"startDate\": \"2023-05\",\n        \"endDate\": \"2023-08\",\n        \"responsibilities\": [\n          \"Overhauled the agency's website UI/UX on the Squarespace platform, integrating an automated calendar booking system that directly increased the volume of inbound client discovery calls by 50%.\"\n        ],\n        \"technologies\": [\"Squarespace\"],\n        \"achievements\": [\n          \"50% increase in inbound client discovery calls\"\n        ]\n      }\n    ],\n    \"education\": [\n      {\n        \"degree\": \"College Diploma In Computer Programming\",\n        \"institution\": \"Seneca Polytechnic\",\n        \"location\": \"Toronto, ON\",\n        \"gpa\": \"3.6/4.0\",\n        \"endDate\": \"2025-08\",\n        \"status\": \"Completed\"\n      }\n    ],\n    \"projects\": [\n      {\n        \"name\": \"Agri-Tourism Marketplace\",\n        \"date\": \"2025-03\",\n        \"context\": \"Seneca Hackathon 2025 - Finalist\",\n        \"techStack\": [\"HTML\", \"CSS\", \"JavaScript\", \"Node.js\", \"Express\", \"Vercel\"],\n        \"description\": [\n          \"Developed the initial prototype for an agritourism platform during an 8-hour hackathon, focusing on core user flows for browsing and viewing tour details.\",\n          \"Built a mock back-end using Node.js and Express to serve JSON data from local files, simulating a live API for the front-end to consume.\"\n        ]\n      }\n    ],\n    \"skills\": {\n      \"programmingLanguages\": [\"CSS3\", \"HTML5\", \"JavaScript\", \"Python\", \"TypeScript\"],\n      \"frameworksAndLibraries\": [\"Bootstrap\", \"Express\", \"Next.js\", \"Node.js\", \"React\", \"Tailwind CSS\"],\n      \"toolsAndPlatforms\": [\"GitHub\", \"Google Cloud Platform (GCP)\", \"RESTful APIs\", \"UI/UX Principles\"]\n    }\n  },\n  4: {\n    \"personalInfo\": {\n      \"name\": \"YOUR_FULL_NAME\",\n      \"location\": \"YOUR_CITY, YOUR_STATE\",\n      \"phone\": \"YOUR_PHONE_NUMBER\",\n      \"email\": \"your.email@example.com\",\n      \"linkedin\": \"linkedin.com/in/your-profile\",\n      \"website\": \"your-website.com\",\n      \"title\": \"Front-end Developer\"\n    },\n    \"professionalSummary\": \"With 3+ years of experience building solutions for e-commerce, I create web applications that drive real business results. Proficient in HTML, CSS, JavaScript and React, I recently re-architected a company's web presence, leading to a 35% increase in online sales and a 40% boost in organic traffic through targeted development and SEO.\",\n    \"workExperience\": [\n      {\n        \"title\": \"Web Developer\",\n        \"company\": \"Sowcial\",\n        \"location\": \"Toronto, ON\",\n        \"startDate\": \"2025-03\",\n        \"endDate\": \"2025-10\",\n        \"responsibilities\": [\n          \"Developed a production-ready marketplace using Next.js 15, TypeScript, and Tailwind CSS, converting a Hackathon concept into a scalable web application.\",\n          \"Implemented a comprehensive error handling system with custom reusable components, improving user experience by providing context-aware feedback for all HTTP status codes.\",\n          \"Established a three-tier deployment pipeline on Google Cloud Platform, automating builds and enhancing security by integrating Google Secret Manager to eliminate hardcoded tokens.\"\n        ],\n        \"technologies\": [\"Next.js 15\", \"TypeScript\", \"Tailwind CSS\", \"Google Cloud Platform\", \"Google Secret Manager\"]\n      },\n      {\n        \"title\": \"Ecommerce Specialist\",\n        \"company\": \"Galerie Maya\",\n        \"location\": \"Toronto, ON\",\n        \"startDate\": \"2023-10\",\n        \"endDate\": \"2025-03\",\n        \"responsibilities\": [\n          \"Redesigned website entirely on the Shopify platform, implementing a modern UI and custom JavaScript features that contributed to a 35% increase in online sales.\",\n          \"Drove a 40% increase in organic traffic within six months by executing a targeted SEO strategy, focusing on keyword optimization for product descriptions and creating high-ranking landing pages.\",\n          \"Analyzed website performance using Google Analytics, translating visitor data into actionable UI/UX improvements that led to a 35% increase in sales conversion rates.\"\n        ],\n        \"technologies\": [\"Shopify\", \"JavaScript\", \"SEO\", \"Google Analytics\"],\n        \"achievements\": [\n          \"35% increase in online sales\",\n          \"40% increase in organic traffic\",\n          \"35% increase in sales conversion rates\"\n        ]\n      },\n      {\n        \"title\": \"Web Developer\",\n        \"company\": \"Frenzr Social Media Agency\",\n        \"location\": \"Montreal, QC\",\n        \"startDate\": \"2023-05\",\n        \"endDate\": \"2023-08\",\n        \"responsibilities\": [\n          \"Overhauled the agency's website UI/UX on the Squarespace platform, integrating an automated calendar booking system that directly increased the volume of inbound client discovery calls by 50%.\",\n          \"Developed and launched several key pages, including 'Clients,' 'Team,' and 'Contact Us,' applying custom CSS modifications to create a more professional and cohesive online presence.\"\n        ],\n        \"technologies\": [\"Squarespace\", \"CSS\"],\n        \"achievements\": [\n          \"50% increase in inbound client discovery calls\"\n        ]\n      }\n    ],\n    \"education\": [\n      {\n        \"degree\": \"College Diploma In Computer Programming\",\n        \"institution\": \"Seneca Polytechnic\",\n        \"location\": \"Toronto, ON\",\n        \"gpa\": \"3.6/4.0\",\n        \"endDate\": \"2025-08\",\n        \"status\": \"Completed\"\n      }\n    ],\n    \"projects\": [\n      {\n        \"name\": \"Agri-Tourism Marketplace\",\n        \"date\": \"2025-03\",\n        \"context\": \"Seneca Hackathon 2025 - Finalist\",\n        \"techStack\": [\"HTML\", \"CSS\", \"JavaScript\", \"Node.js\", \"Express\", \"Vercel\"],\n        \"description\": [\n          \"Developed the initial prototype for an agritourism platform during an 8-hour hackathon, focusing on core user flows for browsing and viewing tour details.\",\n          \"Built a mock back-end using Node.js and Express to serve JSON data from local files, simulating a live API for the front-end to consume.\",\n          \"Configured the project for serverless deployment using a vercel.json file, demonstrating an early understanding of modern front-end hosting and API routing.\"\n        ]\n      }\n    ],\n    \"skills\": {\n      \"programmingLanguages\": [\"CSS3\", \"HTML5\", \"JavaScript\", \"Python\", \"TypeScript\"],\n      \"frameworksAndLibraries\": [\"Bootstrap\", \"Express\", \"Next.js\", \"Node.js\", \"React\", \"Tailwind CSS\"],\n      \"toolsAndPlatforms\": [\"Figma\", \"GitHub\", \"Google Cloud Platform (GCP)\", \"RESTful APIs\", \"UI/UX Principles\"]\n    }\n  }\n};\n\n// Get the selected resume based on recommended version\nconst selectedResume = resumeVersions[version];\n\nif (!selectedResume) {\n  throw new Error(`Invalid resume version ${version}.`);\n}\n\n// Return combined data\nreturn {\n  json: {\n    scoreMatch: parsed.score.match,\n    scoreSalary: parsed.score.salary,\n    scoreRemote: parsed.score.remote,\n    scoreBenefits: parsed.score.benefits,\n    scoreFulltime: parsed.score.fulltime,\n    scoreTotal: parsed.score.total,\n    recommendedResumeVersion: version,\n    reasoning: parsed.reasoning,\n    title: jobData.title,\n    descriptionText: jobData.descriptionText,\n    companyName: jobData.companyName,\n    jobUrl: jobData.jobUrl,\n    salary: jobData.salary?.salaryText || '',\n    location: jobData.location,\n    city: jobData.location?.city || '',\n    datePublished: jobData.datePublished,\n    isRemote: jobData.isRemote,\n    expired: jobData.expired,\n    benefits: jobData.benefits || '',\n    jobType: jobData.jobType || [],\n    platform: jobData.platform,\n    candidateResume: selectedResume\n  }\n};"
+        "jsCode": "// Extract the JSON string from Gemini's response\nlet geminiText = $input.item.json.content.parts[0].text;\n\n// Remove markdown code block wrappers if present\ngeminiText = geminiText.trim();\nif (geminiText.startsWith('```')) {\n  geminiText = geminiText.replace(/^```(?:json)?\\s*\\n?/, '');\n  geminiText = geminiText.replace(/\\n?```\\s*$/, '');\n  geminiText = geminiText.trim();\n}\n\n// Parse JSON\nlet parsed;\ntry {\n  parsed = JSON.parse(geminiText);\n} catch (e) {\n  throw new Error(`Failed to parse Gemini response: ${e.message}\\n\\nResponse: ${geminiText}`);\n}\n\n// Validate parsed object\nif (!parsed.score || typeof parsed.recommendedResumeVersion !== 'number') {\n  throw new Error(`Invalid JSON structure from Gemini.\\nParsed: ${JSON.stringify(parsed, null, 2)}`);\n}\n\n// Get job data\nconst jobData = $('Loop Over dataset items').item.json;\nconst version = parsed.recommendedResumeVersion;\n\n// Version-specific resume configurations\nconst resumeVersions = {\n  1: { /* ... keep all your resume data ... */ },\n  2: { /* ... keep all your resume data ... */ },\n  3: { /* ... keep all your resume data ... */ },\n  4: { /* ... keep all your resume data ... */ }\n};\n\n// Handle version 0 (no match)\nif (version === 0) {\n  return {\n    json: {\n      scoreMatch: parsed.score.match,\n      scoreSalary: parsed.score.salary,\n      scoreRemote: parsed.score.remote,\n      scoreBenefits: parsed.score.benefits,\n      scoreFulltime: parsed.score.fulltime,\n      scoreTotal: parsed.score.total,\n      recommendedResumeVersion: 0,\n      title: jobData.title,\n      descriptionText: jobData.descriptionText,\n      companyName: jobData.companyName,\n      jobUrl: jobData.jobUrl,\n      salary: jobData.salary?.salaryText || '',\n      location: jobData.location,\n      city: jobData.location?.city || '',\n      datePublished: jobData.datePublished,\n      isRemote: jobData.isRemote,\n      expired: jobData.expired,\n      benefits: jobData.benefits || '',\n      jobType: jobData.jobType || [],\n      platform: jobData.platform,\n      candidateResume: null\n    }\n  };\n}\n\n// Get the selected resume\nconst selectedResume = resumeVersions[version];\n\nif (!selectedResume) {\n  throw new Error(`Invalid resume version ${version}. Valid versions are 1-4.`);\n}\n\n// Return combined data\nreturn {\n  json: {\n    scoreMatch: parsed.score.match,\n    scoreSalary: parsed.score.salary,\n    scoreRemote: parsed.score.remote,\n    scoreBenefits: parsed.score.benefits,\n    scoreFulltime: parsed.score.fulltime,\n    scoreTotal: parsed.score.total,\n    recommendedResumeVersion: version,\n    title: jobData.title,\n    descriptionText: jobData.descriptionText,\n    companyName: jobData.companyName,\n    jobUrl: jobData.jobUrl,\n    salary: jobData.salary?.salaryText || '',\n    location: jobData.location,\n    city: jobData.location?.city || '',\n    datePublished: jobData.datePublished,\n    isRemote: jobData.isRemote,\n    expired: jobData.expired,\n    benefits: jobData.benefits || '',\n    jobType: jobData.jobType || [],\n    platform: jobData.platform,\n    candidateResume: selectedResume\n  }\n};"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
         2368,
-        272
+        192
       ],
       "id": "57694036-88e6-4c72-afd8-2ca69c73e570",
       "name": "JSONify score and reasoning"
@@ -337,7 +347,7 @@
       ],
       "id": "5c86de09-db1c-4ec0-b5b2-f8453451d0f7",
       "name": "Wait",
-      "webhookId": "3cd25351-c5e6-4543-85a9-1935f5662ad7"
+      "webhookId": "YOUR_WEBHOOK_ID_1"
     },
     {
       "parameters": {
@@ -368,11 +378,11 @@
       ],
       "id": "ca80d6ba-6862-4ebc-98da-fe37f66d9634",
       "name": "Wait1",
-      "webhookId": "a3e23cad-5615-4a06-96e1-efc693299923"
+      "webhookId": "YOUR_WEBHOOK_ID_2"
     },
     {
       "parameters": {
-        "jsCode": "// Get all items from the dataset\nconst items = $input.all();\n\n// Use a Map to track unique jobs by URL\nconst uniqueJobs = new Map();\n\nitems.forEach(item => {\n  const jobUrl = item.json.jobUrl;\n\n  // Normalize LinkedIn URLs by removing query parameters\n  // LinkedIn job ID is in the path (e.g., /jobs/view/12345)\n  let normalizedUrl = jobUrl;\n  if (jobUrl && jobUrl.includes('linkedin.com/jobs')) {\n    // Remove everything after the ? (query parameters like refId, trackingId, etc.)\n    normalizedUrl = jobUrl.split('?')[0];\n  }\n\n  // Only keep the first occurrence of each normalized URL\n  if (!uniqueJobs.has(normalizedUrl)) {\n    uniqueJobs.set(normalizedUrl, item);\n  }\n});\n\n// Convert back to array\nconst uniqueItems = Array.from(uniqueJobs.values());\n\nconsole.log(`Original items: ${items.length}`);\nconsole.log(`Unique items: ${uniqueItems.length}`);\nconsole.log(`Duplicates removed from batch: ${items.length - uniqueItems.length}`);\n\nreturn uniqueItems;"
+        "jsCode": "// Get all items from the dataset\nconst items = $input.all();\n\n// Use a Map to track unique jobs by URL\nconst uniqueJobs = new Map();\n\nitems.forEach(item => {\n  const jobUrl = item.json.jobUrl;\n  const jobTitle = item.json.jobTitle || item.json.title || '';\n\n  // Convert to lowercase for case-insensitive matching\n  const lowerTitle = jobTitle.toLowerCase();\n\n  // Filter out Backend positions\n  if (lowerTitle.includes('backend')) {\n    console.log(`Filtered out backend position: ${jobTitle}`);\n    return; // Skip this item\n  }\n\n  // Filter out MERN developer positions\n  if (lowerTitle.includes('mern')) {\n    console.log(`Filtered out MERN position: ${jobTitle}`);\n    return; // Skip this item\n  }\n\n  // Normalize LinkedIn URLs by removing query parameters\n  // LinkedIn job ID is in the path (e.g., /jobs/view/12345)\n  let normalizedUrl = jobUrl;\n  if (jobUrl && jobUrl.includes('linkedin.com/jobs')) {\n    // Remove everything after the ? (query parameters like refId, trackingId, etc.)\n    normalizedUrl = jobUrl.split('?')[0];\n  }\n\n  // Only keep the first occurrence of each normalized URL\n  if (!uniqueJobs.has(normalizedUrl)) {\n    uniqueJobs.set(normalizedUrl, item);\n  }\n});\n\n// Convert back to array\nconst uniqueItems = Array.from(uniqueJobs.values());\n\nconsole.log(`Original items: ${items.length}`);\nconsole.log(`Unique items: ${uniqueItems.length}`);\nconsole.log(`Duplicates removed from batch: ${items.length - uniqueItems.length}`);\n\nreturn uniqueItems;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -387,17 +397,17 @@
       "parameters": {
         "documentId": {
           "__rl": true,
-          "value": "1Z7z6kOCXcXLnckqrzJrQrbl1JpnaOt4NAbpjwleIAa0",
+          "value": "YOUR_GOOGLE_SHEETS_DOCUMENT_ID",
           "mode": "list",
           "cachedResultName": "Job Listings Database",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Z7z6kOCXcXLnckqrzJrQrbl1JpnaOt4NAbpjwleIAa0/edit?usp=drivesdk"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEETS_DOCUMENT_ID/edit?usp=drivesdk"
         },
         "sheetName": {
           "__rl": true,
           "value": "gid=0",
           "mode": "list",
-          "cachedResultName": "Sheet1",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Z7z6kOCXcXLnckqrzJrQrbl1JpnaOt4NAbpjwleIAa0/edit#gid=0"
+          "cachedResultName": "Jobs",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEETS_DOCUMENT_ID/edit#gid=0"
         },
         "options": {}
       },
@@ -466,7 +476,7 @@
           "cachedResultName": "🚀 Indeed jobs scraper [PPR] (borderline/indeed-scraper)",
           "cachedResultUrl": "https://console.apify.com/actors/MXLpngmVpE8WTESQr/input"
         },
-        "customBody": "{\n    \"country\": \"ca\",\n    \"enableUniqueJobs\": false,\n    \"fromDays\": \"3\",\n    \"jobType\": \"fulltime\",\n    \"location\": \"North York\",\n    \"maxRows\": 50,\n    \"query\": \"software developer\",\n    \"sort\": \"relevance\"\n}",
+        "customBody": "{\n    \"country\": \"ca\",\n    \"enableUniqueJobs\": false,\n    \"fromDays\": \"3\",\n    \"jobType\": \"fulltime\",\n    \"location\": \"North York\",\n    \"maxRows\": 50,\n    \"query\": \"software developer\",\n    \"remote\": \"remote\",\n    \"sort\": \"relevance\"\n}",
         "timeout": 360
       },
       "type": "@apify/n8n-nodes-apify.apify",
@@ -493,7 +503,7 @@
           "cachedResultName": "🚀 Indeed jobs scraper [PPR] (borderline/indeed-scraper)",
           "cachedResultUrl": "https://console.apify.com/actors/MXLpngmVpE8WTESQr/input"
         },
-        "customBody": "{\n    \"country\": \"ca\",\n    \"enableUniqueJobs\": false,\n    \"fromDays\": \"3\",\n    \"jobType\": \"fulltime\",\n    \"location\": \"North York\",\n    \"maxRows\": 50,\n    \"query\": \"web developer\",\n    \"sort\": \"relevance\"\n}",
+        "customBody": "{\n    \"country\": \"ca\",\n    \"enableUniqueJobs\": false,\n    \"fromDays\": \"3\",\n    \"jobType\": \"fulltime\",\n    \"location\": \"North York\",\n    \"maxRows\": 50,\n    \"query\": \"web developer\",\n    \"remote\": \"remote\",\n    \"sort\": \"relevance\"\n}",
         "timeout": 360
       },
       "type": "@apify/n8n-nodes-apify.apify",
@@ -575,7 +585,7 @@
           "cachedResultName": "Linkedin Jobs Scraper - PPR (curious_coder/linkedin-jobs-scraper)",
           "cachedResultUrl": "https://console.apify.com/actors/hKByXkMQaC5Qt9UMN/input"
         },
-        "customBody": "{\n    \"count\": 100,\n    \"scrapeCompany\": true,\n    \"urls\": [\n        \"https://www.linkedin.com/jobs/search?keywords=Web%20Developer&location=North%20York&geoId=104720157&distance=25&f_TPR=r259200\"\n    ]\n}",
+        "customBody": "{\n    \"count\": 100,\n    \"scrapeCompany\": true,\n    \"urls\": [\n        \"https://www.linkedin.com/jobs/search?keywords=Web%20Developer&location=North%20York&geoId=104720157&distance=25&f_TPR=r86400\"\n    ]\n}",
         "timeout": 360
       },
       "type": "@apify/n8n-nodes-apify.apify",
@@ -602,7 +612,7 @@
           "cachedResultName": "Linkedin Jobs Scraper - PPR (curious_coder/linkedin-jobs-scraper)",
           "cachedResultUrl": "https://console.apify.com/actors/hKByXkMQaC5Qt9UMN/input"
         },
-        "customBody": "{\n    \"count\": 100,\n    \"scrapeCompany\": true,\n    \"urls\": [\n        \"https://www.linkedin.com/jobs/search?keywords=Software%20Developer&location=North%20York&geoId=104720157&distance=25&f_TPR=r259200\"\n    ]\n}",
+        "customBody": "{\n    \"count\": 100,\n    \"scrapeCompany\": true,\n    \"urls\": [\n        \"https://www.linkedin.com/jobs/search?keywords=Software%20Developer&location=North%20York&geoId=104720157&distance=25&f_TPR=r86400\"\n    ]\n}",
         "timeout": 360
       },
       "type": "@apify/n8n-nodes-apify.apify",
@@ -732,60 +742,124 @@
     },
     {
       "parameters": {
-        "aggregate": "aggregateAllItemData",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.aggregate",
-      "typeVersion": 1,
-      "position": [
-        2080,
-        80
-      ],
-      "id": "816bde81-4544-40da-b7a2-b593eb3599f3",
-      "name": "Aggregate",
-      "alwaysOutputData": false
-    },
-    {
-      "parameters": {
-        "jsCode": "const jobs = $input.first().json.data\nconst totalCount = jobs.length;\n\n// Count by platform\nconst linkedinCount = jobs.filter(job => job.Platform === 'LinkedIn').length;\nconst indeedCount = jobs.filter(job => job.Platform === 'Indeed').length;\nreturn {\n  json: {\n    subject: `🎯 Seifi Automation: ${totalCount} New Opportunities Found!`,\n    message: `Hey Majid! 👋\n\nGreat news – your automated job seeker found ${totalCount} new position${totalCount !== 1 ? 's' : ''} that match your criteria and are ready for you to apply!\n\n📊 Breakdown:\n• LinkedIn: ${linkedinCount} job${linkedinCount !== 1 ? 's' : ''}\n• Indeed: ${indeedCount} job${indeedCount !== 1 ? 's' : ''}\n\nAll jobs have been scored, filtered, and added to your spreadsheet with personalized cover letters.\n\nTime to make some moves! 💼\n—\nYour n8n Job Hunter Bot`\n  }\n};"
+        "jsCode": "const totalCount = $input.first().json.totalCount;\nconst linkedinCount = $input.first().json.linkedinCount;\nconst indeedCount = $input.first().json.indeedCount;\n\nreturn {\n  json: {\n    subject: `🎯 Job Seeker Automation: ${totalCount} New Opportunities Found!`,\n    message: `Hey there! 👋\n\nGreat news – your automated job seeker found ${totalCount} new position${totalCount !== 1 ? 's' : ''} that match your criteria and are ready for you to apply!\n\n📊 Breakdown:\n• LinkedIn: ${linkedinCount} job${linkedinCount !== 1 ? 's' : ''}\n• Indeed: ${indeedCount} job${indeedCount !== 1 ? 's' : ''}\n\nAll jobs have been scored, filtered, and added to your spreadsheet with personalized cover letters.\n\nTime to make some moves! 💼\n—\nYour n8n Job Hunter Bot`\n  }\n};"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2368,
-        80
+        2816,
+        0
       ],
       "id": "8890735b-8ba3-4d50-a837-4728e2de9258",
       "name": "Format Email Message"
     },
     {
       "parameters": {
-        "jsCode": "const apiToken = 'YOUR_MAILERSEND_API_TOKEN'; // Replace with your actual MailerSend API token\nconst response = await this.helpers.httpRequest({\n  method: 'POST',\n  url: 'https://api.mailersend.com/v1/email',\n  headers: {\n    'Authorization': `Bearer ${apiToken}`,\n    'Content-Type': 'application/json'\n  },\n  body: {\n    from: {\n      email: 'YOUR_SENDER_EMAIL',\n      name: 'Your n8n Bot Name'\n    },\n    to: [{\n      email: 'YOUR_RECIPIENT_EMAIL'\n    }],\n    subject: $input.first().json.subject,\n    text: $input.first().json.message\n  },\n  json: true\n});\n\nreturn [{\n  json: {\n    success: true,\n    response: response || 'Email sent successfully'\n  }\n}];"
+        "jsCode": "const apiToken = 'YOUR_MAILERSEND_API_TOKEN'; // Replace with your actual MailerSend API token\nconst response = await this.helpers.httpRequest({\n  method: 'POST',\n  url: 'https://api.mailersend.com/v1/email',\n  headers: {\n    'Authorization': `Bearer ${apiToken}`,\n    'Content-Type': 'application/json'\n  },\n  body: {\n    from: {\n      email: 'noreply@yourdomain.com',\n      name: 'Your n8n Bot Name'\n    },\n    to: [{\n      email: 'your-email@example.com'\n    }],\n    subject: $input.first().json.subject,\n    text: $input.first().json.message\n  },\n  json: true\n});\n\nreturn [{\n  json: {\n    success: true,\n    response: response || 'Email sent successfully'\n  }\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2592,
-        80
+        3104,
+        0
       ],
       "id": "d70a5636-913a-460b-aba0-5fecba776612",
       "name": "Send Email via MailerSend"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "YOUR_GOOGLE_SHEETS_DOCUMENT_ID",
+          "mode": "list",
+          "cachedResultName": "Job Listings Database",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEETS_DOCUMENT_ID/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Jobs",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEETS_DOCUMENT_ID/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2080,
+        0
+      ],
+      "id": "dfd00c16-20a6-41fb-9dd4-aac4bd05e843",
+      "name": "Get Final Job URLs",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "xMntBXBmoN3qkY6T",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the ORIGINAL job URLs from beginning of workflow\nconst originalJobs = $('Get All Existing Job URLs').all();\nconst originalUrls = new Set(\n  originalJobs.map(job => job.json.Link).filter(Boolean)\n);\n\nconsole.log(`Original jobs in sheet: ${originalUrls.size}`);\n\n// Get the CURRENT job URLs from end of workflow\nconst currentJobs = $input.all(); // From \"Get Final Job URLs\"\nconst currentJobsData = currentJobs.map(job => job.json);\n\nconsole.log(`Current jobs in sheet: ${currentJobsData.length}`);\n\n// Find NEW jobs (jobs that are in current but NOT in original)\nconst newJobs = currentJobsData.filter(job => {\n  return job.Link && !originalUrls.has(job.Link);\n});\n\nconst totalCount = newJobs.length;\n\n// Count by platform\nconst linkedinCount = newJobs.filter(job => job.Platform === 'LinkedIn').length;\nconst indeedCount = newJobs.filter(job => job.Platform === 'Indeed').length;\n\nconsole.log(`New jobs added: ${totalCount}`);\nconsole.log(`LinkedIn: ${linkedinCount}, Indeed: ${indeedCount}`);\n\n// Return the counts\nreturn {\n  json: {\n    totalCount: totalCount,\n    linkedinCount: linkedinCount,\n    indeedCount: indeedCount,\n    newJobs: newJobs // Optional: include the actual jobs for reference\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2368,
+        0
+      ],
+      "id": "c7a30319-5b98-4475-825c-31100f3c3c72",
+      "name": "Compare and Count New Jobs"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b2cdb6a3-0b6f-4d95-8fe9-74b92528c159",
+              "leftValue": "={{ $json.totalCount }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2592,
+        0
+      ],
+      "id": "3adcc85a-9544-416a-92fb-35783aa2ecb5",
+      "name": "If found new job"
     }
   ],
   "pinData": {
     "Schedule Trigger": [
       {
         "json": {
-          "timestamp": "2025-11-10T09:00:24.011-05:00",
-          "Readable date": "November 10th 2025, 9:00:24 am",
-          "Readable time": "9:00:24 am",
-          "Day of week": "Monday",
+          "timestamp": "2025-11-13T09:00:02.019-05:00",
+          "Readable date": "November 13th 2025, 9:00:02 am",
+          "Readable time": "9:00:02 am",
+          "Day of week": "Thursday",
           "Year": "2025",
           "Month": "November",
-          "Day of month": "10",
+          "Day of month": "13",
           "Hour": "09",
           "Minute": "00",
-          "Second": "24",
+          "Second": "02",
           "Timezone": "America/Toronto (UTC-05:00)"
         }
       }
@@ -888,7 +962,7 @@
       "main": [
         [
           {
-            "node": "Aggregate",
+            "node": "Get Final Job URLs",
             "type": "main",
             "index": 0
           }
@@ -1098,14 +1172,9 @@
             "index": 0
           }
         ],
-        []
-      ]
-    },
-    "Aggregate": {
-      "main": [
         [
           {
-            "node": "Format Email Message",
+            "node": "Loop Over dataset items",
             "type": "main",
             "index": 0
           }
@@ -1122,6 +1191,39 @@
           }
         ]
       ]
+    },
+    "Get Final Job URLs": {
+      "main": [
+        [
+          {
+            "node": "Compare and Count New Jobs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compare and Count New Jobs": {
+      "main": [
+        [
+          {
+            "node": "If found new job",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If found new job": {
+      "main": [
+        [
+          {
+            "node": "Format Email Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
@@ -1131,10 +1233,10 @@
     "availableInMCP": false,
     "errorWorkflow": "7Hewp4VvmgmOxXz4"
   },
-  "versionId": "e843043c-02af-4a40-8063-0febda52d49b",
+  "versionId": "ddad9c49-ceb7-4ea2-baa2-b3e90de04aae",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "6640ce88027893b4e8bfa2439d03bd436d4244c3784ce7648a4aaad5a7c7ca21"
+    "instanceId": "YOUR_N8N_INSTANCE_ID"
   },
   "id": "V2HLHocormazLvy5",
   "tags": []
